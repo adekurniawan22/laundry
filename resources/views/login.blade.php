@@ -35,20 +35,21 @@
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Login</h5>
                                     <p class="card-text mb-3">See your growth and get consulting support!</p>
-                                    <form class="form-body">
+                                    <form class="form-body" method="POST" action="<?= url('/login') ?>">
+                                        @csrf
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <label for="username" class="form-label">Username</label>
                                                 <div class="ms-auto position-relative">
                                                     <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-envelope-fill"></i></div>
-                                                    <input type="text" class="form-control radius-30 ps-5" id="username" placeholder="Username">
+                                                    <input type="text" class="form-control radius-30 ps-5" id="username" placeholder="Username" name="username">
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <label for="inputChoosePassword" class="form-label">Enter Password</label>
                                                 <div class="ms-auto position-relative">
                                                     <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                                                    <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" placeholder="Enter Password">
+                                                    <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" placeholder="Enter Password" name="password">
                                                 </div>
                                             </div>
                                             <div class="col-12">
