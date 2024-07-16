@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -13,6 +16,11 @@ class AuthController extends Controller
 
     public function proses_login()
     {
-        echo var_dump($_POST);
+        $p = DB::table('user')->where('username', $_POST['username'])->first();
+        if ($p) {
+            dd('t');
+        } else {
+            dd('d');
+        }
     }
 }

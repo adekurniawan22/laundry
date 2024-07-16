@@ -15,5 +15,12 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+Route::get('/dashboard', function () {
+    return view('dashboard', [
+        "title" => "Dashborad"
+    ]);
+});
+
+Route::get('/', [AuthController::class, 'index']);
 Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'proses_login']);

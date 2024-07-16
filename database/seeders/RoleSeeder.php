@@ -19,7 +19,7 @@ class RoleSeeder extends Seeder
 
         foreach ($role as $index => $data) {
             DB::table('role')->insert([
-                'id_role' => $index,
+                'id_role' => $index + 1,
                 'nama_role' => $data,
                 'created_at' => now(),
                 'updated_at' => now(),
