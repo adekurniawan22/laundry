@@ -18,7 +18,7 @@ class AuthController extends Controller
     {
         $p = DB::table('user')->where('username', $_POST['username'])->first();
         if ($p) {
-            dd('t');
+            dd('m');
         } else {
             dd('d');
         }
