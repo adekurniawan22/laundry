@@ -10,14 +10,13 @@
     <link href="<?= url('assets/onedash') ?>/css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/css/bootstrap-extended.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/css/style.css" rel="stylesheet" />
-    <link href="<?= url('assets/onedash') ?>/css/icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- loader-->
     <link href="<?= url('assets/onedash') ?>/css/pace.min.css" rel="stylesheet" />
 
-    <title>Onedash - Bootstrap 5 Admin Template</title>
+    <title>Login</title>
 </head>
 
 <body>
@@ -31,38 +30,73 @@
                 <div class="authentication-card">
                     <div class="card shadow rounded-0 overflow-hidden">
                         <div class="row g-0">
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 d-flex justify-content-center align-items-center">
                                 <div class="card-body p-4 p-sm-5">
-                                    <h5 class="card-title">Login</h5>
-                                    <p class="card-text mb-3">See your growth and get consulting support!</p>
-                                    <form class="form-body" method="POST" action="<?= url('/login') ?>">
+                                    <h5 class="card-title text-center mb-3">Login</h5>
+                                    @error('error')
+                                        <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                                            <div class="d-flex align-items-center">
+                                                <div class="fs-3 text-danger"><i class="bi bi-x-circle-fill"></i>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close">
+                                            </button>
+                                        </div>
+                                    @enderror
+                                    <form class="form-body" method="POST" action="{{ route('user.login') }}">
                                         @csrf
                                         <div class="row g-3">
                                             <div class="col-12">
-                                                <label for="username" class="form-label">Username</label>
                                                 <div class="ms-auto position-relative">
-                                                    <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-envelope-fill"></i></div>
-                                                    <input type="text" class="form-control radius-30 ps-5" id="username" placeholder="Username" name="username">
+                                                    <div
+                                                        class="position-absolute top-50 translate-middle-y search-icon px-3">
+                                                        <i class="bi bi-person-fill"></i>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control radius-30 ps-5 @error('username') is-invalid @enderror"
+                                                        id="username" placeholder="Masukkan Username" name="username">
                                                 </div>
+                                                @error('username')
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                             <div class="col-12">
-                                                <label for="inputChoosePassword" class="form-label">Enter Password</label>
                                                 <div class="ms-auto position-relative">
-                                                    <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                                                    <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" placeholder="Enter Password" name="password">
+                                                    <div
+                                                        class="position-absolute top-50 translate-middle-y search-icon px-3">
+                                                        <i class="bi bi-lock-fill"></i>
+                                                    </div>
+                                                    <input type="password"
+                                                        class="form-control radius-30 ps-5 @error('password') is-invalid @enderror"
+                                                        id="inputChoosePassword" placeholder="Masukkan Password"
+                                                        name="password">
                                                 </div>
+                                                @error('password')
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary radius-30">Login</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary radius-30">Login</button>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </form>
                                 </div>
                             </div>
                             <div class="col-lg-6 bg-login d-flex align-items-center justify-content-center">
-                                <img src="<?= url('assets/onedash') ?>/images/error/login-img.jpg" class="img-fluid" alt="">
+                                <img src="<?= url('assets/onedash') ?>/images/error/login-img.jpg" class="img-fluid"
+                                    alt="">
                             </div>
                         </div>
                     </div>
@@ -75,7 +109,8 @@
     </div>
     <!--end wrapper-->
 
-
+    <!-- Bootstrap bundle JS -->
+    <script src="<?= url('assets/onedash') ?>/js/bootstrap.bundle.min.js"></script>
     <!--plugins-->
     <script src="<?= url('assets/onedash') ?>/js/jquery.min.js"></script>
     <script src="<?= url('assets/onedash') ?>/js/pace.min.js"></script>

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -26,7 +27,7 @@ class UserSeeder extends Seeder
                 'id_cabang' => $faker->randomElement($cabangId),
                 'nama' => $faker->name(),
                 'username' => $faker->userName(),
-                'password' => password_hash('password', PASSWORD_DEFAULT),
+                'password' => Hash::make('password'),
                 'no_hp' => $faker->phoneNumber(),
                 'alamat' => $faker->address(),
                 'foto' => "profil.png",
