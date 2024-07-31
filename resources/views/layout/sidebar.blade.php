@@ -42,15 +42,17 @@
                 <div class="menu-title">Cabang</div>
             </a>
         </li>
-        <li>
-            <a href="#">
+
+        <li class="{{ Request::is('owner/kategori*') ? 'mm-active' : '' }}">
+            <a href="<?= url('owner/kategori') ?>">
                 <div class="parent-icon"><i class="bi bi-tags-fill"></i>
                 </div>
                 <div class="menu-title">Kategori</div>
             </a>
         </li>
-        <li>
-            <a href="#">
+
+        <li class="{{ Request::is('owner/pelanggan*') ? 'mm-active' : '' }}">
+            <a href="<?= url('owner/pelanggan') ?>">
                 <div class="parent-icon"><i class="lni lni-network"></i>
                 </div>
                 <div class="menu-title">Pelanggan</div>

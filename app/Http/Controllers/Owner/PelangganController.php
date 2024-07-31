@@ -8,17 +8,29 @@ use App\Http\Controllers\Controller;
 
 class PelangganController extends Controller
 {
+    // Constants for view titles
+    private const TITLE_INDEX = 'Daftar Pelanggan';
+    private const TITLE_CREATE = 'Tambah Pelanggan';
+    private const TITLE_EDIT = 'Edit Pelanggan';
+
+    // Index method
     public function index()
     {
-        $pelanggan = Pelanggan::all();
-        return view('main.owner.pelanggan.index', compact('pelanggan'));
+        $pelanggans = Pelanggan::all();
+        return view('main.owner.pelanggan.index', [
+            'pelanggans' => $pelanggans,
+            'title' => self::TITLE_INDEX
+        ]);
     }
 
+    // Create method
     public function create()
     {
-        return view('main.owner.pelanggan.create');
+        return view('main.owner.pelanggan.create', [
+            'title' => self::TITLE_CREATE,
+        ]);
     }
-
+    // Store method
     public function store(Request $request)
     {
         $request->validate([
@@ -28,34 +40,38 @@ class PelangganController extends Controller
 
         Pelanggan::create($request->all());
 
-        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan created successfully.');
+        return redirect()->route('owner.pelanggan.index')->with('success', 'Pelanggan created successfully.');
     }
 
-    public function show(Pelanggan $pelanggan)
+    // Edit method
+    public function edit($id)
     {
-        return view('main.owner.pelanggan.show', compact('pelanggan'));
+        return view('main.owner.pelanggan.edit', [
+            'pelanggan' => Pelanggan::findOrFail($id),
+            'title' => self::TITLE_EDIT
+        ]);
     }
 
-    public function edit(Pelanggan $pelanggan)
+    // Update method
+    public function update(Request $request, $id)
     {
-        return view('main.owner.pelanggan.edit', compact('pelanggan'));
-    }
-
-    public function update(Request $request, Pelanggan $pelanggan)
-    {
-        $request->validate([
+        // Validasi input
+        $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
             'no_hp' => 'required|integer',
         ]);
 
-        $pelanggan->update($request->all());
+        // Update data pelanggan
+        $pelanggan = Pelanggan::findOrFail($id);
+        $pelanggan->update($validatedData);
 
-        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan updated successfully.');
+        return redirect()->route('owner.pelanggan.index')->with('success', 'Pelanggan updated successfully.');
     }
 
-    public function destroy(Pelanggan $pelanggan)
+    // Destroy method
+    public function destroy($id)
     {
-        $pelanggan->delete();
-        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan deleted successfully.');
+        Pelanggan::findOrFail($id)->delete();
+        return redirect()->route('owner.pelanggan.index')->with('success', 'Pelanggan deleted successfully.');
     }
 }

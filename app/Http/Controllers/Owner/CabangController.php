@@ -2,62 +2,81 @@
 
 namespace App\Http\Controllers\Owner;
 
-use App\Models\Cabang;
+use App\Models\{Cabang, User};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CabangController extends Controller
 {
+    // Constants for view titles
+    private const TITLE_INDEX = 'Daftar Cabang';
+    private const TITLE_CREATE = 'Tambah Cabang';
+    private const TITLE_EDIT = 'Edit Cabang';
+
+    // Index method
     public function index()
     {
-        $cabang = Cabang::all();
-        return view('main.owner.cabang.index', compact('cabang'));
+        $cabangs = Cabang::with('user')->get();
+        return view('main.owner.cabang.index', [
+            'cabangs' => $cabangs,
+            'title' => self::TITLE_INDEX
+        ]);
     }
 
+    // Create method
     public function create()
     {
-        return view('main.owner.cabang.create');
+        return view('main.owner.cabang.create', [
+            'title' => self::TITLE_CREATE,
+            'user' => User::all(),
+        ]);
     }
 
+    // Store Method
     public function store(Request $request)
     {
         $request->validate([
             'nama_cabang' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
-            'kontak' => 'nullable|exists:user,id_user',
+            'kontak' => 'required|exists:user,id_user',
         ]);
 
         Cabang::create($request->all());
 
-        return redirect()->route('cabang.index')->with('success', 'Cabang created successfully.');
+        return redirect()->route('owner.cabang.index')->with('success', 'Cabang created successfully.');
     }
 
-    public function show(Cabang $cabang)
+    // Edit method
+    public function edit($id)
     {
-        return view('main.owner.cabang.show', compact('cabang'));
+        return view('main.owner.cabang.edit', [
+            'cabang' => Cabang::findOrFail($id),
+            'user' => User::all(),
+            'title' => self::TITLE_EDIT
+        ]);
     }
 
-    public function edit(Cabang $cabang)
+    // Update method
+    public function update(Request $request, $id)
     {
-        return view('main.owner.cabang.edit', compact('cabang'));
-    }
-
-    public function update(Request $request, Cabang $cabang)
-    {
-        $request->validate([
+        // Validasi input
+        $validatedData = $request->validate([
             'nama_cabang' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
-            'kontak' => 'nullable|exists:user,id_user',
+            'kontak' => 'required',
         ]);
 
-        $cabang->update($request->all());
+        // Update data cabang
+        $cabang = Cabang::findOrFail($id);
+        $cabang->update($validatedData);
 
-        return redirect()->route('cabang.index')->with('success', 'Cabang updated successfully.');
+        return redirect()->route('owner.cabang.index')->with('success', 'Cabang updated successfully.');
     }
 
-    public function destroy(Cabang $cabang)
+    // Destroy method
+    public function destroy($id)
     {
-        $cabang->delete();
-        return redirect()->route('cabang.index')->with('success', 'Cabang deleted successfully.');
+        Cabang::findOrFail($id)->delete();
+        return redirect()->route('owner.cabang.index')->with('success', 'Cabang deleted successfully.');
     }
 }

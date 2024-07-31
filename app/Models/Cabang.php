@@ -24,4 +24,9 @@ class Cabang extends Model
     {
         return $this->hasMany(Transaksi::class, 'id_cabang');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'kontak', 'id_user');
+    }
 }
