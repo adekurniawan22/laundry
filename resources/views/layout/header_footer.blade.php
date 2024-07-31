@@ -28,6 +28,16 @@
     <link href="<?= url('assets/onedash') ?>/css/semi-dark.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/css/header-colors.css" rel="stylesheet" />
 
+    <style>
+        .truncate {
+            white-space: nowrap;
+            /* Mencegah teks dari membungkus ke baris berikutnya */
+            overflow: hidden;
+            /* Menyembunyikan teks yang melampaui batas elemen */
+            text-overflow: ellipsis;
+            /* Menampilkan elipsis di akhir teks yang terpotong */
+        }
+    </style>
     <title>{{ $title }}</title>
 </head>
 

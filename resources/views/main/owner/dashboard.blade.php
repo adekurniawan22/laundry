@@ -3,7 +3,8 @@
     <main class="page-content">
 
         <!-- Breadcrumb -->
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3"
+            style="height: 37px; overflow: hidden; display: flex; align-items: center;">
             <div>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
