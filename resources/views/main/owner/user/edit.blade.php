@@ -32,7 +32,7 @@
 
                         <div class="form-group mb-3">
                             <label class="form-label" for="role">Role</label>
-                            <select id="role" name="role" class="form-control @error('role') is-invalid @enderror">
+                            <select id="role" name="role" class="form-select @error('role') is-invalid @enderror">
                                 <option value="">Pilih Role</option>
                                 @foreach ($role as $roleItem)
                                     <option value="{{ $roleItem->id_role }}"
@@ -49,8 +49,7 @@
 
                         <div class="form-group mb-3">
                             <label class="form-label" for="cabang">Cabang</label>
-                            <select id="cabang" name="cabang"
-                                class="form-control @error('cabang') is-invalid @enderror">
+                            <select id="cabang" name="cabang" class="form-select @error('cabang') is-invalid @enderror">
                                 <option value="">Pilih Cabang</option>
                                 @foreach ($cabang as $cabangItem)
                                     <option value="{{ $cabangItem->id_cabang }}"

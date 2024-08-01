@@ -8,7 +8,7 @@
             <div>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="<?= route('owner.dashboard') ?>"><i
+                        <li class="breadcrumb-item"><a href="<?= route('kasir.dashboard') ?>"><i
                                     class="bx bx-home-alt"></i></a>
                         </li>
                         <li class="breadcrumb-item" aria-current="page"> <span class="text-dark">Dashboard</span></li>
@@ -19,42 +19,6 @@
         <!-- End Breadcrumb -->
 
         <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-3">
-            <div class="col">
-                <div class="card overflow-hidden radius-10">
-                    <div class="card-body">
-                        <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                            <div class="w-50">
-                                <p>Jumlah User</p>
-                                <h4 class="">{{ $userCount }}</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card overflow-hidden radius-10">
-                    <div class="card-body">
-                        <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                            <div class="w-50">
-                                <p>Jumlah Cabang</p>
-                                <h4 class="">{{ $cabangCount }}</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card overflow-hidden radius-10">
-                    <div class="card-body">
-                        <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                            <div class="w-50">
-                                <p>Jumlah Kategori</p>
-                                <h4 class="">{{ $kategoriCount }}</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="col">
                 <div class="card overflow-hidden radius-10">
                     <div class="card-body">

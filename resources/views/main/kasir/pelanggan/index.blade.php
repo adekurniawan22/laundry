@@ -9,16 +9,16 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('owner.dashboard') }}"><i class="bx bx-home-alt"></i></a>
+                            <a href="{{ route('kasir.dashboard') }}"><i class="bx bx-home-alt"></i></a>
                         </li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <span class="text-dark">Kategori</span>
+                            <span class="text-dark">Pelanggan</span>
                         </li>
                     </ol>
                 </nav>
             </div>
             <div class="ms-auto">
-                <a href="{{ route('owner.kategori.create') }}" class="btn btn-primary">
+                <a href="{{ route('kasir.pelanggan.create') }}" class="btn btn-primary">
                     <i class="fadeIn animated bx bx-plus"></i>Tambah
                 </a>
             </div>
@@ -33,27 +33,26 @@
                         <table id="example" class="table align-middle table-hover">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Kategori</th>
-                                    <th class="text-center">Harga</th>
+                                    <th>Nama Pelanggan</th>
+                                    <th>No. HP</th>
                                     <th class="text-center" data-sortable="false">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($kategoris as $kategori)
+                                @foreach ($pelanggans as $pelanggan)
                                     <tr>
-                                        <td>{{ $kategori->kategori }}</td>
-                                        <td class="text-center">
-                                            {{ 'Rp ' . number_format($kategori->harga, 0, ',', '.') }}
-                                        </td>
+                                        <td>{{ $pelanggan->nama }}</td>
+                                        <td>{{ $pelanggan->no_hp }}</td>
                                         <td class="text-center">
                                             <div class="d-flex align-items-center justify-content-center gap-3 fs-6">
-                                                <a href="{{ route('owner.kategori.edit', $kategori->id_kategori) }}"
+                                                <a href="{{ route('kasir.pelanggan.edit', $pelanggan->id_pelanggan) }}"
                                                     class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                     title="Edit" aria-label="Edit">
                                                     <i class="bi bi-pencil-fill"></i>
                                                 </a>
 
-                                                <form action="{{ route('owner.kategori.destroy', $kategori->id_kategori) }}"
+                                                <form
+                                                    action="{{ route('kasir.pelanggan.destroy', $pelanggan->id_pelanggan) }}"
                                                     method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')

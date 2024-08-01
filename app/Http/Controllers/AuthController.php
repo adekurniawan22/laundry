@@ -40,12 +40,13 @@ class AuthController extends Controller
         if ($user && Hash::check($request->input('password'), $user->password)) {
             // Simpan id_user ke dalam session
             $request->session()->put('id_user', $user->id_user);
+            $request->session()->put('id_role', $user->id_role);
 
             // Cek id_role dan arahkan pengguna
             if ($user->id_role == 1) {
                 return redirect()->route('owner.dashboard'); // Ubah dengan route yang sesuai
             } elseif ($user->id_role == 2) {
-                return redirect()->route('kasir.dashboard'); // Ubah dengan route yang sesuai
+                return redirect()->route('kasir.dashboard');  // Ubah dengan route yang sesuai
             } else {
                 return redirect()->back()->withErrors(['error' => 'Role tidak dikenali']);
             }
@@ -53,5 +54,15 @@ class AuthController extends Controller
             // Jika pengguna tidak ditemukan atau password salah
             return redirect()->back()->withInput($request->all())->withErrors(['error' => 'Username atau password salah']);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        // Hapus id_user dan id_role dari session
+        $request->session()->forget('id_user');
+        $request->session()->forget('id_role');
+
+        // Mengarahkan pengguna ke halaman login setelah logout
+        return redirect('/login');
     }
 }
