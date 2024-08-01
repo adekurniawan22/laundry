@@ -52,15 +52,6 @@
                     <i class="bi bi-list"></i>
                 </div>
                 <div class="top-navbar-right ms-auto">
-                    <ul class="navbar-nav align-items-center gap-1">
-                        <li class="nav-item dark-mode d-none d-sm-flex">
-                            <a class="nav-link dark-mode-icon" href="javascript:;">
-                                <div class="">
-                                    <i class="bi bi-moon-fill"></i>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
                 <div class="dropdown dropdown-user-setting">
                     <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">

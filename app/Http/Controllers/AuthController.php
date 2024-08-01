@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -34,25 +34,31 @@ class AuthController extends Controller
         }
 
         // Ambil data pengguna berdasarkan username
-        $user = DB::table('user')->where('username', $request->input('username'))->first();
+        $user = User::where('username', $request->input('username'))->first();
 
-        // Jika pengguna ditemukan
-        if ($user && Hash::check($request->input('password'), $user->password)) {
-            // Simpan id_user ke dalam session
-            $request->session()->put('id_user', $user->id_user);
-            $request->session()->put('id_role', $user->id_role);
+        // Cek jika pengguna ditemukan
+        if ($user) {
+            // Jika password benar
+            if (Hash::check($request->input('password'), $user->password)) {
+                // Simpan id_user ke dalam session
+                $request->session()->put('id_user', $user->id_user);
+                $request->session()->put('id_role', $user->id_role);
 
-            // Cek id_role dan arahkan pengguna
-            if ($user->id_role == 1) {
-                return redirect()->route('owner.dashboard'); // Ubah dengan route yang sesuai
-            } elseif ($user->id_role == 2) {
-                return redirect()->route('kasir.dashboard');  // Ubah dengan route yang sesuai
+                // Cek id_role dan arahkan pengguna
+                if ($user->id_role == 1) {
+                    return redirect()->route('owner.dashboard'); // Ubah dengan route yang sesuai
+                } elseif ($user->id_role == 2) {
+                    return redirect()->route('kasir.dashboard');  // Ubah dengan route yang sesuai
+                } else {
+                    return redirect()->back()->withErrors(['error' => 'Role tidak dikenali']);
+                }
             } else {
-                return redirect()->back()->withErrors(['error' => 'Role tidak dikenali']);
+                // Jika password salah
+                return redirect()->back()->withInput($request->all())->withErrors(['error' => 'Password salah']);
             }
         } else {
-            // Jika pengguna tidak ditemukan atau password salah
-            return redirect()->back()->withInput($request->all())->withErrors(['error' => 'Username atau password salah']);
+            // Jika pengguna tidak ditemukan
+            return redirect()->back()->withInput($request->all())->withErrors(['error' => 'Akun tidak ditemukan']);
         }
     }
 

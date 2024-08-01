@@ -43,8 +43,7 @@
                                                 </div>
                                             </div>
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                aria-label="Close">
-                                            </button>
+                                                aria-label="Close"></button>
                                         </div>
                                     @enderror
                                     <form class="form-body" method="POST" action="{{ route('user.login') }}">
@@ -58,7 +57,8 @@
                                                     </div>
                                                     <input type="text"
                                                         class="form-control radius-30 ps-5 @error('username') is-invalid @enderror"
-                                                        id="username" placeholder="Masukkan Username" name="username">
+                                                        id="username" placeholder="Masukkan Username" name="username"
+                                                        value="{{ old('username') }}">
                                                 </div>
                                                 @error('username')
                                                     <div class="invalid-feedback d-block">
@@ -75,7 +75,7 @@
                                                     <input type="password"
                                                         class="form-control radius-30 ps-5 @error('password') is-invalid @enderror"
                                                         id="inputChoosePassword" placeholder="Masukkan Password"
-                                                        name="password">
+                                                        name="password" value="{{ old('password') }}">
                                                 </div>
                                                 @error('password')
                                                     <div class="invalid-feedback d-block">

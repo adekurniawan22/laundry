@@ -73,7 +73,7 @@
                         <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                             <div class="w-50">
                                 <p>Jumlah Transaksi</p>
-                                <h4 class="">5</h4>
+                                <h4 class="">{{ $transaksiCount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                         <div class="d-flex justify-content-center align-items-center overflow-hidden">
                             <div class="w-50 text-center">
                                 <h4>Uang Masuk</h4>
-                                <h1 class="">Rp. 3.000.000</h1>
+                                <h1 class="">{{ 'Rp. ' . number_format($totalPendapatan, 0, ',', '.') }}</h1>
                             </div>
                         </div>
                     </div>
