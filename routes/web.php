@@ -15,12 +15,15 @@ use App\Http\Controllers\Kasir\{
     PelangganController as KasirPelangganController,
     TransaksiController
 };
+use App\Http\Controllers\ProfilController;
 
 // Auth Routes
 Route::get('/', [AuthController::class, 'index']);
 Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'authenticationLogin'])->name('user.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/profil', [ProfilController::class, 'edit'])->name('profil.edit');
+Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
 
 // Owner Routes
 Route::prefix('owner')->name('owner.')->group(function () {

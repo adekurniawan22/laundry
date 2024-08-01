@@ -60,21 +60,19 @@
                                 alt="">
                             <div class="d-none d-sm-block">
                                 @php
-                                    use Illuminate\Support\Facades\DB;
-                                    $user = DB::table('user')
-                                        ->join('role', 'user.id_role', '=', 'role.id_role') // Menggabungkan tabel user dan role
-                                        ->where('id_user', '=', session('id_user'))
-                                        ->select('user.*', 'role.nama_role') // Memilih kolom dari tabel user dan role
-                                        ->first();
+                                    use App\Models\User;
+
+                                    // Ambil data pengguna berdasarkan id_user dari session dengan relasi role
+                                    $user = User::with('role', 'cabang')->where('id_user', session('id_user'))->first();
                                 @endphp
                                 <p class="user-name mb-0">{{ $user->nama }}</p>
-                                <small class="mb-0 dropdown-user-designation">{{ $user->nama_role }}</small>
+                                <small class="mb-0 dropdown-user-designation">{{ $user->role->nama_role }}</small>
                             </div>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="pages-user-profile.html">
+                            <a class="dropdown-item" href="{{ route('profil.edit') }}">
                                 <div class="d-flex align-items-center">
                                     <div class=""><i class="bi bi-person-fill"></i></div>
                                     <div class="ms-3"><span>Profil</span></div>
@@ -110,7 +108,7 @@
         <!--start footer-->
         <footer class="footer">
             <div class="footer-text">
-                Copyright © 2024. All right reserved.
+                Copyright © 2024. Laundry Ade ({{ $user->cabang->nama_cabang }})
             </div>
         </footer>
         <!--end footer-->
