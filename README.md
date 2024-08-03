@@ -2,7 +2,8 @@
 
 Selamat datang di aplikasi web laundry! Aplikasi ini dirancang untuk memudahkan pengelolaan data laundry dengan dua peran utama: Owner dan Kasir. Dengan berbagai fitur canggih, aplikasi ini membantu Anda mengelola semua aspek laundry di berbagai cabang dengan lebih efisien. Link Demo dari aplikasi dapat dilihat [di sini](https://codebyade.com/laundry/).
 
-Owner (username: owner, password:password) Kasir (username: kasir, password:password)
+- Owner (username: owner, password: password) 
+- Kasir (username: kasir, password: password)
 
 ## Wireframe Web
 
