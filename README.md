@@ -1,27 +1,28 @@
 # Aplikasi Web Laundry
 
-Aplikasi web laundry ini dirancang untuk mengelola data laundry dengan dua peran utama: Owner dan Kasir. Aplikasi ini menyediakan berbagai fitur untuk mempermudah pengelolaan laundry di berbagai cabang.
+Selamat datang di aplikasi web laundry! Aplikasi ini dirancang untuk memudahkan pengelolaan data laundry dengan dua peran utama: Owner dan Kasir. Dengan berbagai fitur canggih, aplikasi ini membantu Anda mengelola semua aspek laundry di berbagai cabang dengan lebih efisien.
 
-## Fitur
+## Wireframe Web
+
+Untuk melihat tampilan kasar dan desain aplikasi web laundry, silakan kunjungi wireframe [di sini](https://whimsical.com/laundry-Ka4hTZg2yTrc1HCPyogy24).
+
+## Fitur Utama
 
 ### Role Owner
-- **Dashboard**: Menampilkan statistik jumlah pengguna, cabang, kategori, pelanggan, dan transaksi, serta uang masuk per bulan di semua cabang.
-- **User**: Menambahkan, melihat, mengubah, dan menghapus data pengguna.
-- **Cabang**: Menambahkan, melihat, mengubah, dan menghapus data cabang.
-- **Kategori**: Menambahkan, melihat, mengubah, dan menghapus data kategori.
-- **Pelanggan**: Menambahkan, melihat, mengubah, dan menghapus data pelanggan.
-- **Transaksi**: Melihat data transaksi dan detail transaksi.
+- **Dashboard**: Akses statistik lengkap seperti jumlah pengguna, cabang, kategori, pelanggan, transaksi, dan pendapatan bulanan di seluruh cabang.
+- **Manajemen Pengguna**: Tambah, lihat, edit, dan hapus data pengguna.
+- **Manajemen Cabang**: Tambah, lihat, edit, dan hapus data cabang.
+- **Manajemen Kategori**: Tambah, lihat, edit, dan hapus data kategori.
+- **Manajemen Pelanggan**: Tambah, lihat, edit, dan hapus data pelanggan.
+- **Manajemen Transaksi**: Lihat data transaksi dan detail transaksi.
 
 ### Role Kasir
-- **Dashboard**: Menampilkan statistik jumlah pelanggan dan jumlah transaksi sesuai dengan cabang kasir yang sedang login.
-- **Pelanggan**: Menambahkan, melihat, mengubah, dan menghapus data pelanggan.
-- **Transaksi**: Menambahkan, melihat, mengubah, dan menghapus data transaksi serta detail transaksi.
+- **Dashboard**: Lihat statistik jumlah pelanggan dan transaksi sesuai dengan cabang tempat kasir login.
+- **Manajemen Pelanggan**: Tambah, lihat, edit, dan hapus data pelanggan.
+- **Manajemen Transaksi**: Tambah, lihat, edit, dan hapus data transaksi serta detail transaksi.
 
 ### Profil
-- **Profil**: Mengupdate data diri profil yang sedang login. Fitur ini dapat diakses oleh Owner dan Kasir.
-
-### Wireframe Web
-Untuk rancangan kasar visual mengenai tampilan website, Anda dapat melihat wireframe aplikasi web laundry [di sini.](https://whimsical.com/laundry-Ka4hTZg2yTrc1HCPyogy24)
+- **Profil Pengguna**: Update data diri untuk pengguna yang sedang login. Fitur ini dapat diakses oleh Owner dan Kasir.
 
 ## Screenshots
 
@@ -36,12 +37,14 @@ Untuk rancangan kasar visual mengenai tampilan website, Anda dapat melihat wiref
 
 ## Instalasi
 
-1. Clone repository ini:
+Ikuti langkah-langkah di bawah ini untuk menginstal aplikasi ini:
+
+1. Clone repository:
     ```bash
     git clone https://github.com/username/repository.git
     ```
 
-2. Masuk ke direktori proyek:
+2. Akses direktori proyek:
     ```bash
     cd repository
     ```
@@ -51,12 +54,12 @@ Untuk rancangan kasar visual mengenai tampilan website, Anda dapat melihat wiref
     composer install
     ```
 
-4. Buat file `.env` dari file `.env.example`:
+4. Buat file `.env`:
     ```bash
     cp .env.example .env
     ```
 
-5. Generate key aplikasi:
+5. Generate kunci aplikasi:
     ```bash
     php artisan key:generate
     ```
