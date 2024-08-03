@@ -23,13 +23,13 @@ Aplikasi web laundry ini dirancang untuk mengelola data laundry dengan dua peran
 ## Screenshots
 
 ### Login
-![Login](path/to/login.png)
+![Login](public/screenshots/login.png)
 
 ### Menu Owner
-![Menu Owner](path/to/owner_menu.png)
+![Menu Owner](public/screenshots/owner_menu.png)
 
 ### Menu Kasir
-![Menu Kasir](path/to/cashier_menu.png)
+![Menu Kasir](public/screenshots/kasir_menu.png)
 
 ## Instalasi
 
