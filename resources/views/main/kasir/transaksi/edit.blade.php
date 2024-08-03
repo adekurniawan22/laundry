@@ -58,7 +58,7 @@
                             <hr>
                             <div class="form-group mb-3">
                                 <label class="form-label" for="status">Status</label>
-                                <select id="status" name="status" class="form-select">
+                                <select id="status" name="status" class="form-select single-select">
                                     <option value="">Pilih Status</option>
                                     <option value="Lunas" {{ $transaksi->status == 'Lunas' ? 'selected' : '' }}>Lunas
                                     </option>

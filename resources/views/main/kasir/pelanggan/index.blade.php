@@ -51,17 +51,17 @@
                                                     <i class="bi bi-pencil-fill"></i>
                                                 </a>
 
-                                                <form
+                                                <button type="button" class="text-danger bg-transparent border-0 p-0"
+                                                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                                    data-form-id="delete-form-{{ $pelanggan->id_pelanggan }}">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+
+                                                <form id="delete-form-{{ $pelanggan->id_pelanggan }}"
                                                     action="{{ route('kasir.pelanggan.destroy', $pelanggan->id_pelanggan) }}"
-                                                    method="POST" class="d-inline">
+                                                    method="POST" style="display: none;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="text-danger bg-transparent border-0 p-0"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
-                                                        aria-label="Delete"
-                                                        onclick="return confirm('Apakah ingin Menghapus?')">
-                                                        <i class="bi bi-trash-fill"></i>
-                                                    </button>
                                                 </form>
                                             </div>
                                         </td>

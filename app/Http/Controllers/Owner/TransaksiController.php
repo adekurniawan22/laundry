@@ -19,4 +19,34 @@ class TransaksiController extends Controller
             'title' => self::TITLE_INDEX
         ]);
     }
+
+    public function getDetail($id_transaksi)
+    {
+        // Ambil data transaksi bersama dengan relasi terkait
+        $transaksi = Transaksi::with(['user', 'pelanggan', 'detailTransaksi.kategori', 'cabang'])
+            ->find($id_transaksi);
+
+        // Cek jika transaksi tidak ditemukan
+        if (!$transaksi) {
+            return response()->json(['error' => 'Transaksi tidak ditemukan'], 404);
+        }
+
+        // Jika transaksi ditemukan, kembalikan data sebagai JSON
+        return response()->json([
+            'id_transaksi' => $transaksi->id_transaksi,
+            'user' => $transaksi->user,
+            'pelanggan' => $transaksi->pelanggan,
+            'cabang' => $transaksi->cabang,
+            'tgl_transaksi' => $transaksi->tgl_transaksi,
+            'tgl_selesai' => $transaksi->tgl_selesai,
+            'status' => $transaksi->status,
+            'details' => $transaksi->detailTransaksi->map(function ($detail) {
+                return [
+                    'kategori' => $detail->kategori->kategori, // Asumsi 'nama' adalah field di model Kategori
+                    'harga' => $detail->kategori->harga,
+                    'jumlah' => $detail->jumlah,
+                ];
+            }),
+        ]);
+    }
 }

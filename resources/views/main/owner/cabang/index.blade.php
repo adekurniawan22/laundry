@@ -67,16 +67,17 @@
                                                     <i class="bi bi-pencil-fill"></i>
                                                 </a>
 
-                                                <form action="{{ route('owner.cabang.destroy', $cabang->id_cabang) }}"
-                                                    method="POST" class="d-inline">
+                                                <button type="button" class="text-danger bg-transparent border-0 p-0"
+                                                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                                    data-form-id="delete-form-{{ $cabang->id_cabang }}">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+
+                                                <form id="delete-form-{{ $cabang->id_cabang }}"
+                                                    action="{{ route('owner.cabang.destroy', $cabang->id_cabang) }}"
+                                                    method="POST" style="display: none;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="text-danger bg-transparent border-0 p-0"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
-                                                        aria-label="Delete"
-                                                        onclick="return confirm('Apakah ingin Menghapus?')">
-                                                        <i class="bi bi-trash-fill"></i>
-                                                    </button>
                                                 </form>
                                             </div>
                                         </td>

@@ -25,12 +25,16 @@ class CheckRole
         $id_role = $request->session()->get('id_role');
 
         // Cek role berdasarkan session
-        if ($role == 'owner' && $id_role != 1) {
-            return redirect('/kasir/dashboard')->withErrors('Anda tidak memiliki hak akses sebagai owner.');
+        if ($id_role == 1) {
+            if ($role == 'owner' && $id_role != 1) {
+                return redirect('/kasir/dashboard')->withErrors('Anda tidak memiliki hak akses sebagai owner.');
+            }
         }
 
-        if ($role == 'kasir' && $id_role != 2) {
-            return redirect('/owner/dashboard')->withErrors('Anda tidak memiliki hak akses sebagai kasir.');
+        if ($id_role == 2) {
+            if ($role == 'kasir' && $id_role != 2) {
+                return redirect('/owner/dashboard')->withErrors('Anda tidak memiliki hak akses sebagai kasir.');
+            }
         }
 
         return $next($request);

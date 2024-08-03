@@ -5,12 +5,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="<?= url('assets/onedash') ?>/images/favicon-32x32.png" type="image/png" />
+    <link rel="icon" href="<?= url('assets/onedash') ?>/images/icon.png" type="image/png" />
 
     <!--plugins-->
     <link href="<?= url('assets/onedash') ?>/plugins/notifications/css/lobibox.min.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+    <link href="<?= url('assets/onedash') ?>/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="<?= url('assets/onedash') ?>/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
     <!-- Bootstrap CSS -->
     <link href="<?= url('assets/onedash') ?>/css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/css/bootstrap-extended.css" rel="stylesheet" />
@@ -108,12 +110,12 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}">
+                            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#confirmLogout">
                                 <div class="d-flex align-items-center">
                                     <div class=""><i class="fadeIn animated bx bx-log-out"></i></div>
                                     <div class="ms-3"><span>Logout</span></div>
                                 </div>
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -129,6 +131,48 @@
         <!--start overlay-->
         <div class="overlay nav-toggle-icon"></div>
         <!--end overlay-->
+
+        <!-- Modal Konfirmasi -->
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Penghapusan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" id="confirm-delete" class="btn btn-primary">Hapus</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Logout -->
+        <div class="modal fade" id="confirmLogout" tabindex="-1" aria-labelledby="confirmLogoutLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmLogoutLabel">Konfirmasi Logout</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah Anda yakin ingin keluar?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <a href="{{ route('logout') }}" type="button" id="confirm-delete"
+                            class="btn btn-primary">Ya</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!--start footer-->
         <footer class="footer">
@@ -189,6 +233,8 @@
     <script src="<?= url('assets/onedash') ?>/plugins/simplebar/js/simplebar.min.js"></script>
     <script src="<?= url('assets/onedash') ?>/plugins/metismenu/js/metisMenu.min.js"></script>
     <script src="<?= url('assets/onedash') ?>/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="<?= url('assets/onedash') ?>/plugins/select2/js/select2.min.js"></script>
+    <script src="<?= url('assets/onedash') ?>/js/form-select2.js"></script>
 
     {{-- DataTables --}}
     <script src="<?= url('assets/onedash') ?>/plugins/datatable/js/jquery.dataTables.min.js"></script>
@@ -196,6 +242,20 @@
     <script src="<?= url('assets/onedash') ?>/js/table-datatable.js"></script>
     <!--app-->
     <script src="<?= url('assets/onedash') ?>/js/app.js"></script>
+    <script>
+        var formId;
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
+            button.addEventListener('click', function() {
+                formId = this.getAttribute('data-form-id');
+            });
+        });
+
+        document.getElementById('confirm-delete').addEventListener('click', function() {
+            if (formId) {
+                document.getElementById(formId).submit();
+            }
+        });
+    </script>
     @yield('script')
 </body>
 

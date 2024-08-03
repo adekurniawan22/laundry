@@ -67,7 +67,7 @@
 
                             <div class="form-group mb-3" id="selectClient">
                                 <label class="form-label" for="pelanggan">Pelanggan</label>
-                                <select id="pelanggan" name="pelanggan" class="form-select">
+                                <select id="pelanggan" name="pelanggan" class="form-select single-select">
                                     <option value="">Pilih Pelanggan</option>
                                     @foreach ($pelanggans as $pelanggan)
                                         <option value="{{ $pelanggan->id_pelanggan }}" data-no-hp="{{ $pelanggan->no_hp }}">

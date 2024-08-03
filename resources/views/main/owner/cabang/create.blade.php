@@ -53,12 +53,13 @@
 
                         <div class="form-group mb-3">
                             <label class="form-label" for="kontak">Pengelola</label>
-                            <select id="kontak" name="kontak" class="form-select @error('kontak') is-invalid @enderror">
+                            <select id="kontak" name="kontak"
+                                class="form-select single-select @error('kontak') is-invalid @enderror">
                                 <option value="">Pilih Pengelola</option>
                                 @foreach ($user as $item)
-                                    <option value="{{ $item->id_kontak }}"
-                                        {{ old('kontak') == $item->id_kontak ? 'selected' : '' }}>
-                                        {{ $item->nama_kontak }}</option>
+                                    <option value="{{ $item->id_user }}"
+                                        {{ old('kontak') == $item->id_user ? 'selected' : '' }}>
+                                        {{ $item->nama }}</option>
                                 @endforeach
                             </select>
                             @error('kontak')

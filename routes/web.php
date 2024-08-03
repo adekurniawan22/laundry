@@ -71,6 +71,7 @@ Route::prefix('owner')->name('owner.')->middleware('checkRole:owner')->group(fun
 
     Route::prefix('transaksi')->name('transaksi.')->group(function () {
         Route::get('/', [OwnerTransaksiController::class, 'index'])->name('index');
+        Route::get('{id_transaksi}/detail', [OwnerTransaksiController::class, 'getDetail'])->name('transaksi.getDetail');
     });
 });
 
@@ -94,5 +95,7 @@ Route::prefix('kasir')->name('kasir.')->middleware('checkRole:kasir')->group(fun
         Route::get('{id_pelanggan}/edit', [TransaksiController::class, 'edit'])->name('edit');
         Route::put('{id_pelanggan}', [TransaksiController::class, 'update'])->name('update');
         Route::delete('{id_pelanggan}', [TransaksiController::class, 'destroy'])->name('destroy');
+        Route::get('{id_transaksi}/detail', [TransaksiController::class, 'getDetail'])->name('transaksi.getDetail');
+        Route::post('update-status', [TransaksiController::class, 'updateStatus'])->name('transaksi.updateStatus');
     });
 });

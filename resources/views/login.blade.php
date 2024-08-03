@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="<?= url('assets/onedash') ?>/images/favicon-32x32.png" type="image/png" />
+    <link rel="icon" href="<?= url('assets/onedash') ?>/images/icon.png" type="image/png" />
     <!-- Bootstrap CSS -->
     <link href="<?= url('assets/onedash') ?>/css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/css/bootstrap-extended.css" rel="stylesheet" />
@@ -22,14 +22,14 @@
 <body>
 
     <!--start wrapper-->
-    <div class="wrapper">
-
+    <div class="wrapper d-flex align-items-center justify-content-center min-vh-100">
         <!--start content-->
-        <main class="authentication-content">
-            <div class="container-fluid">
-                <div class="authentication-card">
-                    <div class="card shadow rounded-0 overflow-hidden">
+        <main class="authentication-content pt-0 w-100">
+            <div class="authentication-card pt-0 w-100">
+                <div class="container-fluid">
+                    <div class="card shadow rounded-4 overflow-hidden">
                         <div class="row g-0">
+                            <!-- Form and login content -->
                             <div class="col-lg-6 d-flex justify-content-center align-items-center">
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title text-center mb-3">Login</h5>
@@ -48,7 +48,7 @@
                                     @enderror
                                     <form class="form-body" method="POST" action="{{ route('user.login') }}">
                                         @csrf
-                                        <div class="row g-3">
+                                        <div class="row g-3 ms-0 ms-md-5">
                                             <div class="col-12">
                                                 <div class="ms-auto position-relative">
                                                     <div
@@ -90,12 +90,12 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-lg-6 bg-login d-flex align-items-center justify-content-center">
-                                <img src="<?= url('assets/onedash') ?>/images/error/login-img.jpg" class="img-fluid"
+                            <!-- Image banner -->
+                            <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center">
+                                <img src="<?= url('assets/onedash') ?>/images/banner.png" class="img-fluid pe-5"
                                     alt="">
                             </div>
                         </div>
@@ -113,7 +113,6 @@
     <script src="<?= url('assets/onedash') ?>/js/bootstrap.bundle.min.js"></script>
     <!--plugins-->
     <script src="<?= url('assets/onedash') ?>/js/jquery.min.js"></script>
-    <script src="<?= url('assets/onedash') ?>/js/pace.min.js"></script>
 </body>
 
 </html>
