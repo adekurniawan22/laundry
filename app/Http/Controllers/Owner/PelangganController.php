@@ -40,7 +40,7 @@ class PelangganController extends Controller
 
         Pelanggan::create($request->all());
 
-        return redirect()->route('owner.pelanggan.index')->with('success', 'Pelanggan created successfully.');
+        return redirect()->route('owner.pelanggan.index')->with('success', 'Pelanggan berhasil ditambahkan.');
     }
 
     // Edit method
@@ -65,13 +65,13 @@ class PelangganController extends Controller
         $pelanggan = Pelanggan::findOrFail($id);
         $pelanggan->update($validatedData);
 
-        return redirect()->route('owner.pelanggan.index')->with('success', 'Pelanggan updated successfully.');
+        return redirect()->route('owner.pelanggan.index')->with('success', 'Pelanggan berhasil diedit.');
     }
 
     // Destroy method
     public function destroy($id)
     {
         Pelanggan::findOrFail($id)->delete();
-        return redirect()->route('owner.pelanggan.index')->with('success', 'Pelanggan deleted successfully.');
+        return redirect()->route('owner.pelanggan.index')->with('success', 'Pelanggan berhasil dihapus.');
     }
 }

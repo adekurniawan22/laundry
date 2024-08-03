@@ -9,13 +9,13 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item">
-                            <a href="<?= route('kasir.dashboard') ?>"><i class="bx bx-home-alt"></i></a>
+                            <a href="{{ route('kasir.dashboard') }}"><i class="bx bx-home-alt"></i></a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="<?= route('kasir.transaksi.index') ?>">Transaksi</a>
+                            <a href="{{ route('kasir.transaksi.index') }}">Transaksi</a>
                         </li>
                         <li class="breadcrumb-item" aria-current="page">
-                            <span class="text-dark">Tambah Transaksi</span>
+                            <span class="text-dark">Edit Transaksi</span>
                         </li>
                     </ol>
                 </nav>
@@ -47,20 +47,23 @@
                     <div class="form-progress">
                         <div class="progress-bar"></div>
                     </div>
-                    <form id="form-wizard" action="{{ route('kasir.transaksi.store') }}" method="POST">
+                    <form id="form-wizard" action="{{ route('kasir.transaksi.update', $transaksi->id_transaksi) }}"
+                        method="POST">
                         @csrf
+                        @method('PUT')
 
                         {{-- Step 1 --}}
                         <div class="step">
-                            <h6 id="heading-form">Form Pelanggan(1/3)</h6>
+                            <h6 id="heading-form">Form Pelanggan (1/3)</h6>
                             <hr>
-
                             <div class="form-group mb-3">
                                 <label class="form-label" for="status">Status</label>
                                 <select id="status" name="status" class="form-select">
                                     <option value="">Pilih Status</option>
-                                    <option value="Lunas">Lunas</option>
-                                    <option value="Belum Lunas">Belum Lunas</option>
+                                    <option value="Lunas" {{ $transaksi->status == 'Lunas' ? 'selected' : '' }}>Lunas
+                                    </option>
+                                    <option value="Belum Lunas" {{ $transaksi->status == 'Belum Lunas' ? 'selected' : '' }}>
+                                        Belum Lunas</option>
                                 </select>
                                 <span id="status_error" class="invalid-feedback" role="alert"></span>
                             </div>
@@ -70,7 +73,8 @@
                                 <select id="pelanggan" name="pelanggan" class="form-select">
                                     <option value="">Pilih Pelanggan</option>
                                     @foreach ($pelanggans as $pelanggan)
-                                        <option value="{{ $pelanggan->id_pelanggan }}" data-no-hp="{{ $pelanggan->no_hp }}">
+                                        <option value="{{ $pelanggan->id_pelanggan }}" data-no-hp="{{ $pelanggan->no_hp }}"
+                                            {{ $transaksi->id_pelanggan == $pelanggan->id_pelanggan ? 'selected' : '' }}>
                                             {{ $pelanggan->nama }}
                                         </option>
                                     @endforeach
@@ -78,33 +82,10 @@
                                 <span id="pelanggan_error" class="invalid-feedback" role="alert"></span>
                             </div>
 
-                            <div class="">
-                                <div class="form-check mt-3">
-                                    <input class="form-check-input" type="checkbox" name="checkbox_new_client"
-                                        id="checkbox_new_client">
-                                    <label class="form-label" for="checkbox_new_client">Tambah Pelanggan Baru?</label>
-                                </div>
-                            </div>
-
-                            <!-- New Client -->
-                            <div id="newClientRealization" style="display: none;">
-                                <div class="mb-3">
-                                    <label class="form-label">Nama</label>
-                                    <input id="nama_pelanggan" type="text" class="form-control" placeholder="Nama"
-                                        name="nama_pelanggan">
-                                    <span id="nama_pelanggan_error" class="invalid-feedback" role="alert"></span>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">No. HP</label>
-                                    <input id="no_hp_pelanggan" type="text" class="form-control" placeholder="No. HP"
-                                        name="no_hp_pelanggan">
-                                    <span id="no_hp_pelanggan_error" class="invalid-feedback" role="alert"></span>
-                                </div>
-                            </div>
-
                             <div class="text-end mt-5 mb-3">
                                 <a href="{{ route('kasir.transaksi.index') }}" class="btn btn-dark">
-                                    <i class="lni lni-arrow-left"></i> Back</a>
+                                    <i class="lni lni-arrow-left"></i> Back
+                                </a>
                                 <button type="button" class="btn btn-primary next-step"> Next <i
                                         class="lni lni-arrow-right"></i>
                                 </button>
@@ -115,18 +96,13 @@
                         <div class="step" style="display: none">
                             <h6 id="heading-form">Form Transaksi (2/3)</h6>
                             <hr>
-                            <div class="form-group mb-3">
-                                <label class="form-label" for="estimasi_selesai">Estimasi Selesai</label>
-                                <input type="number" id="estimasi_selesai" name="estimasi_selesai" class="form-control">
-                                <span id="estimasi_selesai_error" class="invalid-feedback" role="alert"></span>
-                            </div>
 
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group mb-3">
                                         <label class="form-label" for="tgl_transaksi">Tanggal Transaksi</label>
-                                        <input type="date" id="tgl_transaksi" name="tgl_transaksi"
-                                            class="form-control">
+                                        <input type="date" id="tgl_transaksi" name="tgl_transaksi" class="form-control"
+                                            value="{{ old('tgl_transaksi', $transaksi->tgl_transaksi) }}">
                                         <span id="tgl_transaksi_error" class="invalid-feedback" role="alert"></span>
                                     </div>
                                 </div>
@@ -134,7 +110,8 @@
                                 <div class="col">
                                     <div class="form-group mb-3">
                                         <label class="form-label" for="tgl_selesai">Tanggal Selesai</label>
-                                        <input type="date" id="tgl_selesai" name="tgl_selesai" class="form-control">
+                                        <input type="date" id="tgl_selesai" name="tgl_selesai" class="form-control"
+                                            value="{{ old('tgl_selesai', $transaksi->tgl_selesai) }}">
                                         <span id="tgl_selesai_error" class="invalid-feedback" role="alert"></span>
                                     </div>
                                 </div>
@@ -149,21 +126,27 @@
                                         <table id="example" class="table align-middle ade">
                                             <thead class="table-secondary">
                                                 <tr>
-                                                    <th style="width: 10%" class="text-center" data-sortable="false">
-                                                    </th>
+                                                    <th style="width: 10%" class="text-center" data-sortable="false"></th>
                                                     <th>Kategori</th>
                                                     <th class="text-center">Harga</th>
                                                     <th class="text-center">Jumlah</th>
                                                 </tr>
                                             </thead>
-
                                             <tbody>
                                                 @foreach ($kategoris as $kategori)
+                                                    @php
+                                                        // Cek jika kategori ada di detail transaksi
+                                                        $detail = $detailTransaksi->firstWhere(
+                                                            'id_kategori',
+                                                            $kategori->id_kategori,
+                                                        );
+                                                    @endphp
                                                     <tr>
                                                         <td class="text-center">
                                                             <input type="checkbox" name="selected_modules[]"
                                                                 value="{{ $kategori->id_kategori }}"
-                                                                class="form-check-input border-dark">
+                                                                class="form-check-input border-dark"
+                                                                {{ $detail ? 'checked' : '' }}>
                                                         </td>
                                                         <td>
                                                             {{ $kategori->kategori }}
@@ -172,8 +155,13 @@
                                                             {{ 'Rp ' . number_format($kategori->harga, 0, ',', '.') }}
                                                         </td>
                                                         <td class="text-center">
-                                                            <input type="number" class="form-control border-dark"
-                                                                style="display: none">
+                                                            @if ($detail)
+                                                                <input type="number" class="form-control border-dark"
+                                                                    value="{{ $detail->jumlah }}">
+                                                            @else
+                                                                <input type="number" class="form-control border-dark"
+                                                                    style="display: none" value="1">
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -202,14 +190,14 @@
                                     <div><span id="summary-alamat-cabang">{{ $alamat_cabang }}</span></div>
                                     <div><span id="summary-no-hp-cabang">{{ $no_hp_cabang }}</span></div>
                                     <div id="div-summary-status" class="position-absolute top-0 end-0 px-3 py-2 rounded">
-                                        <strong><span id="summary-status"></span></strong>
+                                        <strong><span id="summary-status">{{ $transaksi->status }}</span></strong>
                                     </div>
                                 </div>
 
                                 <div class="mb-4" style="line-height: 1.5">
                                     <div class="d-flex justify-content-between mb-2">
                                         <strong>Nota:</strong>
-                                        <span id="summary-nota">{{ $nota }}</span>
+                                        <span id="summary-nota">{{ $transaksi->nota }}</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <strong>Kasir:</strong>
@@ -217,19 +205,19 @@
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <strong>Pelanggan:</strong>
-                                        <span id="summary-nama-pelanggan"></span>
+                                        <span id="summary-nama-pelanggan">{{ $transaksi->pelanggan->nama }}</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <strong>No. HP:</strong>
-                                        <span id="summary-no-hp"></span>
+                                        <span id="summary-no-hp">{{ $transaksi->pelanggan->no_hp }}</span>
                                     </div>
                                     <div class="d-flex justify-content-between mb-2">
                                         <strong>Tanggal Transaksi:</strong>
-                                        <span id="summary-tgl-transaksi"></span>
+                                        <span id="summary-tgl-transaksi">{{ $transaksi->tgl_transaksi }}</span>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <strong>Estimasi Selesai:</strong>
-                                        <span id="summary-estimasi-selesai"></span>
+                                        <span id="summary-estimasi-selesai">{{ $transaksi->estimasi_selesai }}</span>
                                     </div>
                                 </div>
 
@@ -278,6 +266,7 @@
         </div>
     </main>
 @endsection
+
 
 @section('script')
     <script>
@@ -328,63 +317,6 @@
                 progressBar.style.width = `${progressPercent}%`;
             }
 
-            function handleCheckboxChange(event) {
-                const checkbox = event.target;
-                const value = checkbox.value;
-                const inputCell = checkbox.closest('tr').querySelector('td input[type="number"]');
-                const inputValue = inputCell.value;
-
-                if (checkbox.checked) {
-                    selectedValues.push({
-                        id: value,
-                        quantity: 1
-                    });
-                    inputCell.style.display = 'block';
-                    inputCell.value = 1;
-                    inputCell.min = 1;
-                } else {
-                    inputCell.style.display = 'none';
-                    inputCell.value = '';
-                    const index = selectedValues.findIndex(item => item.id === value);
-                    if (index !== -1) {
-                        selectedValues.splice(index, 1);
-                    }
-                }
-                updateSummary();
-            }
-
-            function handleNumberInputChange(event) {
-                const input = event.target;
-                const value = input.value;
-                const row = input.closest('tr');
-                const checkbox = row.querySelector('td input[type="checkbox"]');
-                const id = checkbox.value;
-
-                if (checkbox.checked) {
-                    const index = selectedValues.findIndex(item => item.id === id);
-                    if (index !== -1) {
-                        selectedValues[index].quantity = value || 0;
-                    }
-                }
-                updateSummary();
-            }
-
-            function formatRupiah(value) {
-                let number_string = value.replace(/[^,\d]/g, '').toString();
-                let split = number_string.split(',');
-                let sisa = split[0].length % 3;
-                let rupiah = split[0].substr(0, sisa);
-                let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-
-                rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-                return rupiah ? 'Rp. ' + rupiah : '';
-            }
-
             function updateSummary() {
                 const summaryBody = document.getElementById('summary-body');
                 const totalPriceElement = document.getElementById('total-price');
@@ -427,33 +359,75 @@
             }
 
 
-            // Fungsi untuk mengupdate tanggal
-            function updateTanggal() {
-                const estimasiSelesai = document.getElementById('estimasi_selesai').value;
-                const tglTransaksiInput = document.getElementById('tgl_transaksi');
-                const tglSelesaiInput = document.getElementById('tgl_selesai');
+            function handleCheckboxChange(event) {
+                const checkbox = event.target;
+                const value = checkbox.value;
+                const inputCell = checkbox.closest('tr').querySelector('td input[type="number"]');
 
-                if (estimasiSelesai && tglTransaksiInput.value) {
-                    const tglTransaksi = new Date(tglTransaksiInput.value);
-                    const estimasi = parseInt(estimasiSelesai, 10);
+                if (inputCell) {
+                    const inputValue = parseInt(inputCell.value, 10) ||
+                        0; // Ambil nilai input number atau 0 jika kosong
 
-                    // Update tgl_transaksi ke tanggal hari ini
-                    tglTransaksiInput.value = new Date().toISOString().split('T')[0];
+                    if (checkbox.checked) {
+                        // Tambahkan atau update item dalam selectedValues
+                        const existingItem = selectedValues.find(item => item.id === value);
+                        if (existingItem) {
+                            existingItem.quantity = inputValue; // Update quantity jika item sudah ada
+                        } else {
+                            selectedValues.push({
+                                id: value,
+                                quantity: inputValue
+                            });
+                        }
+                        inputCell.style.display = 'block';
+                        inputCell.min = 1;
+                    } else {
+                        // Hapus item dari selectedValues jika checkbox tidak dicentang
+                        const index = selectedValues.findIndex(item => item.id === value);
+                        if (index !== -1) {
+                            selectedValues.splice(index, 1);
+                        }
+                        inputCell.style.display = 'none';
+                        inputCell.value = ''; // Reset value
+                    }
 
-                    // Update tgl_selesai
-                    tglTransaksi.setDate(tglTransaksi.getDate() + estimasi);
-                    const tglSelesai = tglTransaksi.toISOString().split('T')[0];
-                    tglSelesaiInput.value = tglSelesai;
+                    updateSummary();
                 }
+
+
+                console.log(selectedValues);
             }
 
-            // Fungsi untuk mengatur tgl_transaksi ke tanggal hari ini
-            function setDefaultTanggalTransaksi() {
-                const tglTransaksiInput = document.getElementById('tgl_transaksi');
-                const today = new Date();
-                // Mengatur tanggal ke format YYYY-MM-DD
-                const formattedDate = today.toISOString().split('T')[0];
-                tglTransaksiInput.value = formattedDate;
+            function handleNumberInputChange(event) {
+                const input = event.target;
+                const value = input.value;
+                const row = input.closest('tr');
+                const checkbox = row.querySelector('td input[type="checkbox"]');
+                const id = checkbox.value;
+
+                if (checkbox.checked) {
+                    const index = selectedValues.findIndex(item => item.id === id);
+                    if (index !== -1) {
+                        selectedValues[index].quantity = value || 0;
+                    }
+                }
+                updateSummary();
+            }
+
+            function formatRupiah(value) {
+                let number_string = value.replace(/[^,\d]/g, '').toString();
+                let split = number_string.split(',');
+                let sisa = split[0].length % 3;
+                let rupiah = split[0].substr(0, sisa);
+                let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+                return rupiah ? 'Rp. ' + rupiah : '';
             }
 
             function validateCurrentStep0() {
@@ -469,16 +443,7 @@
                 errorMessage.style.display = 'none';
 
                 // Check if 'Tambah Pelanggan Baru?' is checked
-                const isNewClientChecked = document.getElementById("checkbox_new_client").checked;
                 const pelanggan = document.getElementById("pelanggan");
-
-                // If 'Tambah Pelanggan Baru?' is checked, disable and ignore validation for pelanggan
-                if (isNewClientChecked) {
-                    pelanggan.disabled = true; // Disable the select element
-                    pelanggan.value = ''; // Optionally clear the selected value
-                } else {
-                    pelanggan.disabled = false; // Enable the select element
-                }
 
                 if (currentStep === 0) {
                     // Validate status
@@ -491,35 +456,12 @@
                     }
 
                     // Validate pelanggan if it is not disabled
-                    if (!isNewClientChecked) {
-                        if (!pelanggan.value) {
-                            valid = false;
-                            const errorSpan = document.getElementById("pelanggan_error");
-                            errorSpan.textContent = "Pelanggan harus diisi.";
-                            pelanggan.classList.add('is-invalid');
-                        }
-                    }
 
-                    // Validate nama_pelanggan and no_hp_pelanggan if 'Tambah Pelanggan Baru?' is checked
-                    if (isNewClientChecked) {
-                        const namaPelanggan = document.getElementById("nama_pelanggan");
-                        const noHpPelanggan = document.getElementById("no_hp_pelanggan");
-
-                        // Validate nama_pelanggan
-                        if (!namaPelanggan.value.trim()) {
-                            valid = false;
-                            const errorSpan = document.getElementById("nama_pelanggan_error");
-                            errorSpan.textContent = "Nama harus diisi.";
-                            namaPelanggan.classList.add('is-invalid');
-                        }
-
-                        // Validate no_hp_pelanggan
-                        if (!noHpPelanggan.value.trim()) {
-                            valid = false;
-                            const errorSpan = document.getElementById("no_hp_pelanggan_error");
-                            errorSpan.textContent = "No. HP harus diisi.";
-                            noHpPelanggan.classList.add('is-invalid');
-                        }
+                    if (!pelanggan.value) {
+                        valid = false;
+                        const errorSpan = document.getElementById("pelanggan_error");
+                        errorSpan.textContent = "Pelanggan harus diisi.";
+                        pelanggan.classList.add('is-invalid');
                     }
                 }
 
@@ -539,14 +481,6 @@
                 errorMessage.style.display = 'none';
 
                 if (currentStep === 1) {
-                    // Validate estimasi_selesai
-                    const estimasiSelesai = document.getElementById("estimasi_selesai");
-                    if (!estimasiSelesai.value) {
-                        valid = false;
-                        const errorSpan = document.getElementById("estimasi_selesai_error");
-                        errorSpan.textContent = "Estimasi Selesai harus diisi.";
-                        estimasiSelesai.classList.add('is-invalid');
-                    }
 
                     // Validate checkbox
                     const checkboxes = document.querySelectorAll('input[name="selected_modules[]"]:checked');
@@ -557,15 +491,12 @@
                     }
                 }
 
-                console.log(selectedValues);
                 return valid;
             }
 
             function updateSummaryInfo() {
-                const isNewClientChecked = document.getElementById("checkbox_new_client").checked;
                 const statusSelect = document.getElementById("status");
                 const pelangganSelect = document.getElementById("pelanggan");
-                const namaPelangganInput = document.getElementById("nama_pelanggan");
                 const tglTransaksiInput = document.getElementById("tgl_transaksi");
                 const tglSelesaiInput = document.getElementById("tgl_selesai");
                 const noHpPelangganInput = document.getElementById("no_hp_pelanggan");
@@ -590,19 +521,13 @@
                 }
 
                 // Update Nama Pelanggan
-                const namaPelanggan = isNewClientChecked ? namaPelangganInput.value : pelangganSelect.options[
-                    pelangganSelect.selectedIndex].text;
+                const namaPelanggan = pelangganSelect.options[pelangganSelect.selectedIndex].text;
                 document.getElementById("summary-nama-pelanggan").textContent = namaPelanggan;
 
                 // Update Nomor HP
                 let noHpPelanggan;
-                if (isNewClientChecked) {
-                    noHpPelanggan = noHpPelangganInput.value;
-                } else {
-                    // Ambil nomor HP dari atribut data opsi yang dipilih
-                    const selectedOption = pelangganSelect.options[pelangganSelect.selectedIndex];
-                    noHpPelanggan = selectedOption.getAttribute('data-no-hp');
-                }
+                const selectedOption = pelangganSelect.options[pelangganSelect.selectedIndex];
+                noHpPelanggan = selectedOption.getAttribute('data-no-hp');
                 document.getElementById("summary-no-hp").textContent = noHpPelanggan;
 
                 // Update Tanggal Transaksi
@@ -612,33 +537,42 @@
                 document.getElementById("summary-estimasi-selesai").textContent = tglSelesaiInput.value;
             }
 
-            // Mengubah tampilan elemen terkait client saat checkbox berubah
-            function handleCheckboxClient() {
-                var isChecked = $('#checkbox_new_client').is(":checked");
-                if (isChecked) {
-                    $('#selectClient').hide();
-                    $('#newClientRealization').show();
-                } else {
-                    $('#selectClient').show();
-                    $('#newClientRealization').hide();
-                }
-            }
-            handleCheckboxClient();
-            $('#checkbox_new_client').change(function() {
-                handleCheckboxClient();
-            });
-
-            // Event listener untuk perubahan pada input estimasi_selesai
-            document.getElementById('estimasi_selesai').addEventListener('input', updateTanggal);
-
-            // Menjalankan fungsi untuk set default tgl_transaksi saat halaman dimuat
-            setDefaultTanggalTransaksi();
-
-            // Menambahkan event listener untuk perubahan pada checkbox
+            // Tambahkan event listener untuk perubahan pada checkbox
             document.querySelectorAll('input[type="checkbox"][name="selected_modules[]"]').forEach(function(
                 checkbox) {
                 checkbox.addEventListener('change', handleCheckboxChange);
+
+                // Jalankan handleCheckboxChange untuk checkbox saat ini hanya jika checkbox sudah ter-check sebelumnya
+                if (checkbox.checked) {
+                    handleCheckboxChange({
+                        target: checkbox
+                    });
+                }
             });
+
+            // Tambahkan event listener untuk perubahan nilai input number
+            document.querySelectorAll('input[type="number"]').forEach(function(input) {
+                input.addEventListener('input', function() {
+                    const inputCell = input;
+                    const checkbox = inputCell.closest('tr').querySelector(
+                        'td input[type="checkbox"]');
+
+                    if (checkbox && checkbox.checked) {
+                        const value = checkbox.value;
+                        const inputValue = parseInt(inputCell.value, 10) || 0;
+
+                        // Update quantity untuk item yang sesuai
+                        const existingItem = selectedValues.find(item => item.id === value);
+                        if (existingItem) {
+                            existingItem.quantity = inputValue;
+                        }
+                        updateSummary();
+                    }
+                });
+            });
+
+
+            updateSummary();
 
             // Menambahkan event listener untuk perubahan pada input number
             document.querySelectorAll('input[type="number"]').forEach(function(input) {
@@ -649,6 +583,7 @@
             form.querySelectorAll(".next-step").forEach(function(button) {
                 button.addEventListener("click", async function() {
                     if (currentStep === 0) {
+                        console.log(selectedValues);
                         if (!validateCurrentStep0()) {
                             return false;
                         }

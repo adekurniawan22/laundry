@@ -23,7 +23,7 @@
         </div>
         <!-- End Breadcrumb -->
 
-        <div class="row mx-0">
+        <div class="row ms-0 me-1">
             <div class="card radius-10 w-100">
                 <div class="card-body">
                     <form action="{{ route('owner.pelanggan.store') }}" method="POST">

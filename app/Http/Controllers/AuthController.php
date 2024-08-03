@@ -16,7 +16,7 @@ class AuthController extends Controller
 
     public function index()
     {
-        $data['title'] = 'Auth';
+        $data['title'] = 'Login';
         return view('login', $data);
     }
 

@@ -43,7 +43,7 @@ class CabangController extends Controller
 
         Cabang::create($request->all());
 
-        return redirect()->route('owner.cabang.index')->with('success', 'Cabang created successfully.');
+        return redirect()->route('owner.cabang.index')->with('success', 'Cabang berhasil ditambahkan.');
     }
 
     // Edit method
@@ -70,13 +70,13 @@ class CabangController extends Controller
         $cabang = Cabang::findOrFail($id);
         $cabang->update($validatedData);
 
-        return redirect()->route('owner.cabang.index')->with('success', 'Cabang updated successfully.');
+        return redirect()->route('owner.cabang.index')->with('success', 'Cabang berhasil diedit.');
     }
 
     // Destroy method
     public function destroy($id)
     {
         Cabang::findOrFail($id)->delete();
-        return redirect()->route('owner.cabang.index')->with('success', 'Cabang deleted successfully.');
+        return redirect()->route('owner.cabang.index')->with('success', 'Cabang berhasil dihapus.');
     }
 }

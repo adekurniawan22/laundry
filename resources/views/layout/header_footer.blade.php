@@ -6,8 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="<?= url('assets/onedash') ?>/images/favicon-32x32.png" type="image/png" />
-    <!--plugins-->
 
+    <!--plugins-->
+    <link href="<?= url('assets/onedash') ?>/plugins/notifications/css/lobibox.min.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
     <!-- Bootstrap CSS -->
@@ -43,6 +44,30 @@
 
 <body>
 
+    @php
+        use App\Models\User;
+
+        // Ambil data pengguna berdasarkan id_user dari session dengan relasi role
+        $user = User::with('role', 'cabang')->where('id_user', session('id_user'))->first();
+
+        // Mengatur zona waktu ke Indonesia
+        date_default_timezone_set('Asia/Jakarta');
+
+        // Mendapatkan waktu saat ini
+        $currentHour = date('H'); // Jam dalam format 24 jam
+
+        if ($currentHour >= 5 && $currentHour < 11) {
+            $greeting = 'Selamat pagi <i class="lni lni-sun"></i>';
+        } elseif ($currentHour >= 11 && $currentHour < 15) {
+            $greeting = 'Selamat siang <i class="lni lni-cloudy-sun"></i>';
+        } elseif ($currentHour >= 15 && $currentHour < 18) {
+            $greeting = 'Selamat sore <i class="lni lni-cloudy-sun"></i>';
+        } else {
+            $greeting = 'Selamat malam <i class="lni lni-night"></i>';
+        }
+
+    @endphp
+
     <!--start wrapper-->
     <div class="wrapper">
         <!--start top header-->
@@ -51,20 +76,20 @@
                 <div class="mobile-toggle-icon fs-3 d-flex d-lg-none">
                     <i class="bi bi-list"></i>
                 </div>
+
+                <!-- Untuk desktop dan tablet -->
+                <div class="position-absolute mt-3 d-none d-lg-block">
+                    <h5 class="text-start">{!! $greeting !!}</h5>
+                </div>
+
                 <div class="top-navbar-right ms-auto">
                 </div>
                 <div class="dropdown dropdown-user-setting">
                     <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                         <div class="user-setting d-flex align-items-center gap-3">
-                            <img src="<?= url('assets/onedash') ?>/images/avatars/avatar-1.png" class="user-img"
+                            <img src="<?= url('assets/onedash') ?>/images/avatars/user_profil.png" class="user-img"
                                 alt="">
                             <div class="d-none d-sm-block">
-                                @php
-                                    use App\Models\User;
-
-                                    // Ambil data pengguna berdasarkan id_user dari session dengan relasi role
-                                    $user = User::with('role', 'cabang')->where('id_user', session('id_user'))->first();
-                                @endphp
                                 <p class="user-name mb-0">{{ $user->nama }}</p>
                                 <small class="mb-0 dropdown-user-designation">{{ $user->role->nama_role }}</small>
                             </div>
@@ -121,6 +146,42 @@
     </div>
     <!--end wrapper-->
 
+    <!--notification js -->
+    <script src="<?= url('assets/onedash') ?>/plugins/notifications/js/lobibox.min.js"></script>
+    <script src="<?= url('assets/onedash') ?>/plugins/notifications/js/notifications.min.js"></script>
+    <script src="<?= url('assets/onedash') ?>/plugins/notifications/js/notification-custom-script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Notification Success
+            @if (session()->has('success'))
+                function notifSuccess() {
+                    Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-check-circle',
+                        msg: '{{ session('success') }}'
+                    });
+                }
+                notifSuccess();
+            @endif
+
+            // Notification Error
+            @if (session()->has('error'))
+                function notifError() {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-x-circle',
+                        msg: '{{ session('error') }}'
+                    });
+                }
+                notifError();
+            @endif
+        });
+    </script>
+
     <!-- Bootstrap bundle JS -->
     <script src="<?= url('assets/onedash') ?>/js/bootstrap.bundle.min.js"></script>
     <!--plugins-->
@@ -128,7 +189,7 @@
     <script src="<?= url('assets/onedash') ?>/plugins/simplebar/js/simplebar.min.js"></script>
     <script src="<?= url('assets/onedash') ?>/plugins/metismenu/js/metisMenu.min.js"></script>
     <script src="<?= url('assets/onedash') ?>/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-    <script src="<?= url('assets/onedash') ?>/js/pace.min.js"></script>
+
     {{-- DataTables --}}
     <script src="<?= url('assets/onedash') ?>/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="<?= url('assets/onedash') ?>/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>

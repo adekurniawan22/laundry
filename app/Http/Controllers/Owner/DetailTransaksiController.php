@@ -29,7 +29,7 @@ class DetailTransaksiController extends Controller
 
         DetailTransaksi::create($request->all());
 
-        return redirect()->route('detail_transaksi.index')->with('success', 'Detail Transaksi created successfully.');
+        return redirect()->route('detail_transaksi.index')->with('success', 'Detail Transaksi berhasil ditambahkan.');
     }
 
     public function show(DetailTransaksi $detailTransaksi)
@@ -52,12 +52,12 @@ class DetailTransaksiController extends Controller
 
         $detailTransaksi->update($request->all());
 
-        return redirect()->route('detail_transaksi.index')->with('success', 'Detail Transaksi updated successfully.');
+        return redirect()->route('detail_transaksi.index')->with('success', 'Detail Transaksi berhasil diedit.');
     }
 
     public function destroy(DetailTransaksi $detailTransaksi)
     {
         $detailTransaksi->delete();
-        return redirect()->route('detail_transaksi.index')->with('success', 'Detail Transaksi deleted successfully.');
+        return redirect()->route('detail_transaksi.index')->with('success', 'Detail Transaksi berhasil dihapus.');
     }
 }

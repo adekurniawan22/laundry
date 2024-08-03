@@ -49,7 +49,7 @@ class UserController extends Controller
             'foto' => 'profil.png',
         ]);
 
-        return redirect()->route('owner.user.index')->with('success', 'User created successfully.');
+        return redirect()->route('owner.user.index')->with('success', 'User berhasil ditambahkan.');
     }
 
     // Edit method
@@ -79,14 +79,14 @@ class UserController extends Controller
             'alamat' => $request->alamat,
         ]);
 
-        return redirect()->route('owner.user.index')->with('success', 'User updated successfully.');
+        return redirect()->route('owner.user.index')->with('success', 'User berhasil diedit.');
     }
 
     // Destroy method
     public function destroy($id)
     {
         User::findOrFail($id)->delete();
-        return redirect()->route('owner.user.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('owner.user.index')->with('success', 'User berhasil dihapus.');
     }
 
     // Private method for validation

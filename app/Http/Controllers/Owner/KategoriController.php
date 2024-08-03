@@ -41,7 +41,7 @@ class KategoriController extends Controller
 
         Kategori::create($request->all());
 
-        return redirect()->route('owner.kategori.index')->with('success', 'Kategori created successfully.');
+        return redirect()->route('owner.kategori.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     // Edit method
@@ -66,13 +66,13 @@ class KategoriController extends Controller
         $kategori = Kategori::findOrFail($id);
         $kategori->update($validatedData);
 
-        return redirect()->route('owner.kategori.index')->with('success', 'Kategori updated successfully.');
+        return redirect()->route('owner.kategori.index')->with('success', 'Kategori berhasil diedit.');
     }
 
     // Destroy method
     public function destroy($id)
     {
         Kategori::findOrFail($id)->delete();
-        return redirect()->route('owner.kategori.index')->with('success', 'Kategori deleted successfully.');
+        return redirect()->route('owner.kategori.index')->with('success', 'Kategori berhasil dihapus.');
     }
 }

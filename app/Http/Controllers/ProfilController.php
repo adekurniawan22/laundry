@@ -35,7 +35,7 @@ class ProfilController extends Controller
             'alamat' => $request->alamat,
         ]);
 
-        return redirect()->route('profil.edit')->with('success', 'Profil updated successfully.');
+        return redirect()->route('profil.edit')->with('success', 'Profil berhasil diedit.');
     }
 
     // Private method for validation

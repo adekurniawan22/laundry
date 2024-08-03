@@ -22,11 +22,15 @@ Route::get('/', [AuthController::class, 'index']);
 Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'authenticationLogin'])->name('user.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/profil', [ProfilController::class, 'edit'])->name('profil.edit');
-Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
+
+// Profil Routes - Accessible by any logged-in user
+Route::middleware('checkRole:owner,kasir')->group(function () {
+    Route::get('/profil', [ProfilController::class, 'edit'])->name('profil.edit');
+    Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
+});
 
 // Owner Routes
-Route::prefix('owner')->name('owner.')->group(function () {
+Route::prefix('owner')->name('owner.')->middleware('checkRole:owner')->group(function () {
     Route::get('/dashboard', [OwnerDashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('user')->name('user.')->group(function () {
@@ -71,7 +75,7 @@ Route::prefix('owner')->name('owner.')->group(function () {
 });
 
 // Kasir Routes
-Route::prefix('kasir')->name('kasir.')->group(function () {
+Route::prefix('kasir')->name('kasir.')->middleware('checkRole:kasir')->group(function () {
     Route::get('/dashboard', [KasirDashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('pelanggan')->name('pelanggan.')->group(function () {

@@ -9,7 +9,13 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('owner.dashboard') }}"><i class="bx bx-home-alt"></i></a>
+                            @if (session('id_role') == 1)
+                                <!-- Cek jika id_role adalah owner -->
+                                <a href="{{ route('owner.dashboard') }}"><i class="bx bx-home-alt"></i></a>
+                            @elseif(session('id_role') == 2)
+                                <!-- Cek jika id_role adalah kasir -->
+                                <a href="{{ route('kasir.dashboard') }}"><i class="bx bx-home-alt"></i></a>
+                            @endif
                         </li>
                         <li class="breadcrumb-item" aria-current="page">
                             <span class="text-dark">Profil</span>
@@ -19,6 +25,7 @@
             </div>
         </div>
         <!-- End Breadcrumb -->
+
 
         <div class="row">
             <div class="col-4">

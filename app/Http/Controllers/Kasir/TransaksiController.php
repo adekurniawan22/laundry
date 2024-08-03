@@ -93,38 +93,73 @@ class TransaksiController extends Controller
             ]);
         }
 
-        return redirect()->route('kasir.transaksi.index')->with('success', 'Transaksi created successfully.');
+        return redirect()->route('kasir.transaksi.index')->with('success', 'Transaksi berhasil ditambahkan.');
     }
 
     // Edit method
     public function edit($id)
     {
+        $transaksi = Transaksi::findOrFail($id);
+        $userId = $transaksi->id_user;
+
+        // Ambil data cabang berdasarkan id_user di session
+        $user = User::with('cabang')->find($userId);
+        $cabang = $user->cabang->nama_cabang;
+        $alamatCabang = $user->cabang->alamat;
+        $noHpCabang = $user->cabang->user->no_hp;
+
+        // Ambil nota terakhir dan tambahkan 1
+        $latestNota = Transaksi::max('id_transaksi') + 1;
+
+        // Ambil nama kasir dari model User
+        $kasir = $user->nama;
+
         return view('main.kasir.transaksi.edit', [
-            'pelanggan' => Transaksi::findOrFail($id),
-            'title' => self::TITLE_EDIT
+            'transaksi' => $transaksi,
+            'detailTransaksi' => DetailTransaksi::where('id_transaksi', $id)->get(),
+            'pelanggans' => Pelanggan::all(),
+            'kategoris' => Kategori::all(),
+            'cabang' => $cabang,
+            'alamat_cabang' => $alamatCabang,
+            'no_hp_cabang' => $noHpCabang,
+            'nota' => $latestNota,
+            'kasir' => $kasir,
+            'title' => self::TITLE_EDIT,
         ]);
     }
 
     // Update method
     public function update(Request $request, $id)
     {
-        // Validasi input
-        $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
-            'no_hp' => 'required|integer',
+        $id_pelanggan = $_POST['pelanggan'];
+
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->update([
+            'id_pelanggan' => $id_pelanggan,
+            'tgl_transaksi' => $_POST['tgl_transaksi'],
+            'tgl_selesai' => $_POST['tgl_selesai'],
+            'status' => $_POST['status'],
         ]);
 
-        // Update data pelanggan
-        $pelanggan = Transaksi::findOrFail($id);
-        $pelanggan->update($validatedData);
+        // Hapus detail transaksi lama
+        DetailTransaksi::where('id_transaksi', $id)->delete();
 
-        return redirect()->route('kasir.transaksi.index')->with('success', 'Transaksi updated successfully.');
+        $details = json_decode($_POST['selected_values']);
+        foreach ($details as $detail) {
+            DetailTransaksi::create([
+                'id_transaksi' => $id,
+                'id_kategori' => $detail->id,
+                'jumlah' => $detail->quantity,
+            ]);
+        }
+
+        return redirect()->route('kasir.transaksi.index')->with('success', 'Transaksi berhasil diedit.');
     }
 
     // Destroy method
     public function destroy($id)
     {
         Transaksi::findOrFail($id)->delete();
-        return redirect()->route('kasir.transaksi.index')->with('success', 'Transaksi deleted successfully.');
+        return redirect()->route('kasir.transaksi.index')->with('success', 'Transaksi berhasil dihapus.');
     }
 }
