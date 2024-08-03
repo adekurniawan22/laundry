@@ -46,8 +46,8 @@
                                         <td>
                                             <div class="d-flex">
                                                 <div class="me-3">
-                                                    <img src="{{ url('assets/img/' . $user->foto) }}" class="rounded-circle"
-                                                        width="50" alt="{{ $user->foto }}">
+                                                    <img src="{{ url('assets/onedash/images/avatars/' . $user->foto) }}"
+                                                        class="rounded-circle" width="50" alt="{{ $user->foto }}">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0">{{ $user->nama }}</h6>
