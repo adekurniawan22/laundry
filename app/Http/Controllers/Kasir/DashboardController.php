@@ -17,7 +17,6 @@ class DashboardController extends Controller
     {
         $data['title'] = 'Dashboard';
         $data['pelangganCount'] = Pelanggan::count();
-        $data['transaksiCount'] = Transaksi::count();
 
         // Mendapatkan tanggal awal dan akhir bulan ini
         $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
@@ -26,6 +25,9 @@ class DashboardController extends Controller
         // Ambil data cabang berdasarkan id_user di session
         $user = User::with('cabang')->find(session('id_user'));
         $id_cabang = $user->cabang->id_cabang;
+
+        // Menghitung transaksiCount hanya untuk id_cabang yang sama dengan session id_user
+        $data['transaksiCount'] = Transaksi::where('id_cabang', $id_cabang)->count();
 
         // Mendapatkan id_transaksi dengan status 'Lunas' dari bulan ini
         $idTransaksiBulanIniLunas = Transaksi::where('status', 'Lunas')
