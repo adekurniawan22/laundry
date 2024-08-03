@@ -56,7 +56,7 @@
                                     $user = User::with('cabang')->find(session('id_user'));
                                     $nama_cabang = $user->cabang->nama_cabang;
                                 @endphp
-                                <h4>Uang Masuk ({{ $nama_cabang }})</h4>
+                                <h4>Uang Masuk ({{ $currentMonthName }} | {{ $nama_cabang }})</h4>
                                 <h1 class="">{{ 'Rp. ' . number_format($totalPendapatan, 0, ',', '.') }}</h1>
                             </div>
                         </div>

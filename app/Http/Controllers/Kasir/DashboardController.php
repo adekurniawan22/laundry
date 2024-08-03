@@ -18,6 +18,31 @@ class DashboardController extends Controller
         $data['title'] = 'Dashboard';
         $data['pelangganCount'] = Pelanggan::count();
 
+        // Mengatur zona waktu ke Asia/Jakarta
+        $now = Carbon::now('Asia/Jakarta');
+
+        // Mendapatkan nomor bulan saat ini
+        $monthNumber = $now->month;
+
+        // Array nama bulan dalam bahasa Indonesia
+        $bulanIndonesia = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember'
+        ];
+
+        // Mendapatkan nama bulan dalam bahasa Indonesia
+        $data['currentMonthName'] = $bulanIndonesia[$monthNumber];
+
         // Mendapatkan tanggal awal dan akhir bulan ini
         $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
         $endOfMonth = Carbon::now()->endOfMonth()->toDateString();

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CabangKontakSeeder::class,
             KategoriSeeder::class,
+            PelangganSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
     }

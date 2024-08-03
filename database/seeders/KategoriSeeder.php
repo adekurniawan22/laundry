@@ -16,7 +16,7 @@ class KategoriSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $kategori = ['Reguler', 'Bed Cover', 'Sepatu'];
+        $kategori = ['Reguler', 'Bed Cover', 'Sepatu', 'Premium', 'Karpet', 'Tas'];
 
         foreach ($kategori as $index => $data) {
             // Menghasilkan angka acak dalam rentang 14 hingga 50 (7000/500 hingga 25000/500)

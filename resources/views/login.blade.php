@@ -22,7 +22,7 @@
 <body>
 
     <!--start wrapper-->
-    <div class="wrapper d-flex align-items-center justify-content-center min-vh-100">
+    <div class="wrapper d-flex align-items-center justify-content-center" style="padding-bottom: 0px !important">
         <!--start content-->
         <main class="authentication-content pt-0 w-100">
             <div class="authentication-card pt-0 w-100">

@@ -87,7 +87,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-center align-items-center overflow-hidden">
                             <div class="w-50 text-center">
-                                <h4>Uang Masuk</h4>
+                                <h4>Uang Masuk ({{ $currentMonthName }})</h4>
                                 <h1 class="">{{ 'Rp. ' . number_format($totalPendapatan, 0, ',', '.') }}</h1>
                             </div>
                         </div>

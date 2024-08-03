@@ -46,9 +46,9 @@ class AuthController extends Controller
 
                 // Cek id_role dan arahkan pengguna
                 if ($user->id_role == 1) {
-                    return redirect()->route('owner.dashboard'); // Ubah dengan route yang sesuai
+                    return redirect()->route('owner.dashboard')->with('success', 'Selamat datang di menu Owner'); // Ubah dengan route yang sesuai
                 } elseif ($user->id_role == 2) {
-                    return redirect()->route('kasir.dashboard');  // Ubah dengan route yang sesuai
+                    return redirect()->route('kasir.dashboard')->with('success', 'Selamat datang di menu Kasir');  // Ubah dengan route yang sesuai
                 } else {
                     return redirect()->back()->withErrors(['error' => 'Role tidak dikenali']);
                 }
