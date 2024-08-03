@@ -21,7 +21,7 @@ Aplikasi web laundry ini dirancang untuk mengelola data laundry dengan dua peran
 - **Profil**: Mengupdate data diri profil yang sedang login. Fitur ini dapat diakses oleh Owner dan Kasir.
 
 ### Wireframe Web
-Untuk rancangan kasar visual mengenai tampilan website, Anda dapat melihat wireframe aplikasi web laundry di sini: [Wireframe Web](https://whimsical.com/laundry-Ka4hTZg2yTrc1HCPyogy24){:target="_blank"}
+Untuk rancangan kasar visual mengenai tampilan website, Anda dapat melihat wireframe aplikasi web laundry [di sini.](https://whimsical.com/laundry-Ka4hTZg2yTrc1HCPyogy24)
 
 ## Screenshots
 
