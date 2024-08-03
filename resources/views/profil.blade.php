@@ -32,8 +32,8 @@
                 <div class="card radius-10 w-100">
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="{{ url('assets/img/' . $user->foto) }}" class="rounded-circle" width="200"
-                                alt="{{ $user->foto }}">
+                            <img src="{{ url('assets/onedash/images/avatars/' . $user->foto) }}" class="rounded-circle"
+                                width="200" alt="{{ $user->foto }}">
                             <h5 class="mt-2">{{ $user->nama }}</h5>
                             <p class="text-muted">{{ $user->role->nama_role }} | {{ $user->cabang->nama_cabang }}</p>
                         </div>

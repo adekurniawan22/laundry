@@ -98,7 +98,7 @@ class UserController extends Controller
             'nama' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:user,username' . ($id ? ",$id,id_user" : ''),
             'password' => 'nullable|string|min:8',
-            'no_hp' => 'required|integer',
+            'no_hp' => 'required|string',
             'alamat' => 'required|string',
         ];
 

@@ -44,9 +44,11 @@
 
                         <div class="form-group mb-3">
                             <label class="form-label" for="harga">Harga</label>
-                            <input type="text" id="harga" name="harga"
-                                class="form-control @error('harga') is-invalid @enderror"
-                                value="{{ old('harga', $kategori->harga) }}">
+                            <div class="input-group">
+                                <input type="text" id="harga" name="harga"
+                                    class="form-control @error('harga') is-invalid @enderror"
+                                    value="{{ old('harga', 'Rp. ' . number_format($kategori->harga, 0, ',', '.')) }}">
+                            </div>
                             @error('harga')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -63,4 +65,37 @@
             </div>
         </div>
     </main>
+@endsection
+
+@section('script')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const hargaInput = document.getElementById('harga');
+
+            function formatHarga(value) {
+                return 'Rp. ' + value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            }
+
+            hargaInput.addEventListener('input', function(event) {
+                // Remove non-numeric characters
+                let value = event.target.value.replace(/[^0-9]/g, '');
+                // Format the value and update input
+                event.target.value = formatHarga(value);
+            });
+
+            hargaInput.addEventListener('focus', function(event) {
+                // Remove "Rp." on focus
+                if (event.target.value.startsWith('Rp. ')) {
+                    event.target.value = event.target.value.replace('Rp. ', '');
+                }
+            });
+
+            hargaInput.addEventListener('blur', function(event) {
+                // Reapply "Rp." on blur
+                if (event.target.value) {
+                    event.target.value = formatHarga(event.target.value.replace(/[^0-9]/g, ''));
+                }
+            });
+        });
+    </script>
 @endsection

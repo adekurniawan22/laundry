@@ -426,7 +426,6 @@
                 }
             }
 
-
             // Fungsi untuk mengupdate tanggal
             function updateTanggal() {
                 const estimasiSelesai = document.getElementById('estimasi_selesai').value;
@@ -514,16 +513,54 @@
                         }
 
                         // Validate no_hp_pelanggan
-                        if (!noHpPelanggan.value.trim()) {
+                        const noHpValue = noHpPelanggan.value.trim();
+                        if (!noHpValue) {
                             valid = false;
                             const errorSpan = document.getElementById("no_hp_pelanggan_error");
                             errorSpan.textContent = "No. HP harus diisi.";
+                            noHpPelanggan.classList.add('is-invalid');
+                        } else if (!/^08[0-9]$/.test(noHpValue)) { // Adjust the regex as per your format
+                            valid = false;
+                            const errorSpan = document.getElementById("no_hp_pelanggan_error");
+                            errorSpan.textContent = "No. HP tidak boleh hanya 08.";
                             noHpPelanggan.classList.add('is-invalid');
                         }
                     }
                 }
 
                 return valid;
+            }
+
+
+            // Initialize and format no_hp_pelanggan input
+            const noHpInput = document.getElementById('no_hp_pelanggan');
+
+            // Function to format the input value
+            function formatNoHp(value) {
+                // Only keep numbers from input
+                value = value.replace(/\D/g, '');
+
+                // Add "08" in front if not already present
+                if (value.length > 0 && !value.startsWith('08')) {
+                    value = '08' + value;
+                }
+                return value;
+            }
+
+            noHpInput.addEventListener('input', function(e) {
+                e.target.value = formatNoHp(e.target.value);
+            });
+
+            noHpInput.addEventListener('focus', function() {
+                // Add "08" in front if no number is present at all
+                if (noHpInput.value.length === 0) {
+                    noHpInput.value = '08';
+                }
+            });
+
+            // Jika ada nilai default di server-side, tambahkan "08" di depannya
+            if (noHpInput.value && !noHpInput.value.startsWith('08')) {
+                noHpInput.value = '08' + noHpInput.value;
             }
 
             function validateCurrentStep1() {

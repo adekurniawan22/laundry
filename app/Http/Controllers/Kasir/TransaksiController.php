@@ -20,12 +20,23 @@ class TransaksiController extends Controller
     // Index method
     public function index()
     {
-        $transaksis = Transaksi::with('user', 'pelanggan')->get();
+        $userId = session('id_user');
+
+        // Ambil data cabang berdasarkan id_user di session
+        $user = User::with('cabang')->find($userId);
+        $cabangId = $user->cabang->id_cabang;
+
+        // Ambil transaksi berdasarkan id_cabang
+        $transaksis = Transaksi::with('user', 'pelanggan')
+            ->where('id_cabang', $cabangId)
+            ->get();
+
         return view('main.kasir.transaksi.index', [
             'transaksis' => $transaksis,
             'title' => self::TITLE_INDEX
         ]);
     }
+
 
     // Create method
     public function create()

@@ -34,15 +34,27 @@ class KategoriController extends Controller
     // Store method
     public function store(Request $request)
     {
-        $request->validate([
+        // Validasi input dengan membersihkan harga terlebih dahulu
+        $validatedData = $request->validate([
             'kategori' => 'required|string|max:255',
-            'harga' => 'required|integer',
+            'harga' => 'required|string|regex:/^Rp\. \d+(\.\d{3})*$/', // Validasi format harga
         ]);
 
-        Kategori::create($request->all());
+        // Bersihkan nilai harga dari "Rp." dan format pemisah ribuan
+        $harga = str_replace(['Rp. ', '.'], '', $validatedData['harga']);
+
+        // Ubah harga menjadi integer
+        $harga = (int) $harga;
+
+        // Buat kategori dengan harga yang sudah dibersihkan
+        Kategori::create([
+            'kategori' => $validatedData['kategori'],
+            'harga' => $harga,
+        ]);
 
         return redirect()->route('owner.kategori.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
+
 
     // Edit method
     public function edit($id)
@@ -53,21 +65,30 @@ class KategoriController extends Controller
         ]);
     }
 
-    // Update method
     public function update(Request $request, $id)
     {
-        // Validasi input
+        // Validasi input dengan membersihkan harga terlebih dahulu
         $validatedData = $request->validate([
             'kategori' => 'required|string|max:255',
-            'harga' => 'required|integer',
+            'harga' => 'required|string|regex:/^Rp\. \d+(\.\d{3})*$/', // Validasi format harga
         ]);
+
+        // Bersihkan nilai harga dari "Rp." dan format pemisah ribuan
+        $harga = str_replace(['Rp. ', '.'], '', $validatedData['harga']);
+
+        // Ubah harga menjadi integer
+        $harga = (int) $harga;
 
         // Update data kategori
         $kategori = Kategori::findOrFail($id);
-        $kategori->update($validatedData);
+        $kategori->update([
+            'kategori' => $validatedData['kategori'],
+            'harga' => $harga,
+        ]);
 
         return redirect()->route('owner.kategori.index')->with('success', 'Kategori berhasil diedit.');
     }
+
 
     // Destroy method
     public function destroy($id)

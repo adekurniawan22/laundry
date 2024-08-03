@@ -64,3 +64,39 @@
         </div>
     </main>
 @endsection
+
+@section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const noHpInput = document.getElementById('no_hp');
+
+            // Function to format the input value
+            function formatNoHp(value) {
+                // Hanya ambil angka dari input
+                value = value.replace(/\D/g, '');
+
+                // Tambahkan "08" di depan angka jika belum ada
+                if (value.length > 0 && !value.startsWith('08')) {
+                    value = '08' + value;
+                }
+                return value;
+            }
+
+            noHpInput.addEventListener('input', function(e) {
+                e.target.value = formatNoHp(e.target.value);
+            });
+
+            noHpInput.addEventListener('focus', function() {
+                // Tambahkan "08" di depan jika tidak ada angka sama sekali
+                if (noHpInput.value.length > 0 && !noHpInput.value.startsWith('08')) {
+                    noHpInput.value = '08' + noHpInput.value;
+                }
+            });
+
+            // Jika ada nilai default di server-side, tambahkan "08" di depannya
+            if (noHpInput.value && !noHpInput.value.startsWith('08')) {
+                noHpInput.value = '08' + noHpInput.value;
+            }
+        });
+    </script>
+@endsection

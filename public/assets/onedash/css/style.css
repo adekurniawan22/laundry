@@ -35,6 +35,8 @@ body {
 .wrapper {
     width: auto;
     position: relative;
+    min-height: 91vh;
+    padding-bottom: 5vh;
 }
 
 a {
@@ -638,6 +640,12 @@ a {
 
 .wrapper.toggled .footer {
     left: 0px;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .footer {
+        left: 0px;
+    }
 }
 
 /* Page Content */

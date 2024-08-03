@@ -34,7 +34,8 @@
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title text-center mb-3">Login</h5>
                                     @error('error')
-                                        <div class="alert border-0 bg-light-danger alert-dismissible fade show py-2">
+                                        <div
+                                            class="alert border-0 bg-light-danger alert-dismissible fade show py-2 ms-md-5">
                                             <div class="d-flex align-items-center">
                                                 <div class="fs-3 text-danger"><i class="bi bi-x-circle-fill"></i>
                                                 </div>

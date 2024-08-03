@@ -10,6 +10,7 @@
     <!--plugins-->
     <link href="<?= url('assets/onedash') ?>/plugins/notifications/css/lobibox.min.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link href="<?= url('assets/onedash') ?>/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/plugins/select2/css/select2.min.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
@@ -31,16 +32,6 @@
     <link href="<?= url('assets/onedash') ?>/css/semi-dark.css" rel="stylesheet" />
     <link href="<?= url('assets/onedash') ?>/css/header-colors.css" rel="stylesheet" />
 
-    <style>
-        .truncate {
-            white-space: nowrap;
-            /* Mencegah teks dari membungkus ke baris berikutnya */
-            overflow: hidden;
-            /* Menyembunyikan teks yang melampaui batas elemen */
-            text-overflow: ellipsis;
-            /* Menampilkan elipsis di akhir teks yang terpotong */
-        }
-    </style>
     <title>{{ $title }}</title>
 </head>
 
@@ -127,7 +118,6 @@
 
         @yield('content')
 
-
         <!--start overlay-->
         <div class="overlay nav-toggle-icon"></div>
         <!--end overlay-->
@@ -174,14 +164,22 @@
             </div>
         </div>
 
+        <!--start overlay-->
+        <div class="overlay nav-toggle-icon"></div>
+        <!--end overlay-->
+
         <!--start footer-->
         <footer class="footer">
             <div class="footer-text">
-                Copyright © 2024. Laundry Ade ({{ $user->cabang->nama_cabang }})
+                Copyright © 2024. Laundry Ade
+                @if ($user && $user->role->id_role != 1)
+                    | {{ $user->cabang->nama_cabang }}
+                @endif
+                <br> Developer: <a href="https://github.com/adekurniawan22" target="_blank">Ade
+                    Kurniawan</a>
             </div>
         </footer>
         <!--end footer-->
-
 
         <!--Start Back To Top Button-->
         <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
@@ -189,6 +187,7 @@
 
     </div>
     <!--end wrapper-->
+
 
     <!--notification js -->
     <script src="<?= url('assets/onedash') ?>/plugins/notifications/js/lobibox.min.js"></script>

@@ -50,15 +50,20 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a class="pe-auto" target="_blank"
-                                                href="https://wa.me/{{ $cabang->user->no_hp }}">
+                                            @php
+                                                // Mengambil nomor HP dan mengganti "08" dengan "628"
+                                                $noHp = $cabang->user->no_hp;
+                                                if (str_starts_with($noHp, '08')) {
+                                                    $noHp = '628' . substr($noHp, 2);
+                                                }
+                                            @endphp
+                                            <a class="pe-auto" target="_blank" href="https://wa.me/{{ $noHp }}">
                                                 <button class="btn btn-success d-flex align-items-center">
                                                     <i class="lni lni-whatsapp me-2"></i>
                                                     {{ $cabang->user->nama }}
                                                 </button>
                                             </a>
                                         </td>
-
                                         <td class="text-center">
                                             <div class="d-flex align-items-center justify-content-center gap-3 fs-6">
                                                 <a href="{{ route('owner.cabang.edit', $cabang->id_cabang) }}"

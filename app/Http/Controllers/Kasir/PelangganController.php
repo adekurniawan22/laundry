@@ -35,7 +35,7 @@ class PelangganController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'no_hp' => 'required|integer',
+            'no_hp' => 'required|string',
         ]);
 
         Pelanggan::create($request->all());
@@ -58,7 +58,7 @@ class PelangganController extends Controller
         // Validasi input
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
-            'no_hp' => 'required|integer',
+            'no_hp' => 'required|string',
         ]);
 
         // Update data pelanggan
