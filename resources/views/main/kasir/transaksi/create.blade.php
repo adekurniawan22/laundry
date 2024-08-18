@@ -473,10 +473,10 @@
 
                 // If 'Tambah Pelanggan Baru?' is checked, disable and ignore validation for pelanggan
                 if (isNewClientChecked) {
-                    pelanggan.disabled = true; // Disable the select element
+                    pelanggan.style.display = 'none'; // Disable the select element
                     pelanggan.value = ''; // Optionally clear the selected value
                 } else {
-                    pelanggan.disabled = false; // Enable the select element
+                    pelanggan.style.display = 'block'; // Disable the select element
                 }
 
                 if (currentStep === 0) {
@@ -519,10 +519,10 @@
                             const errorSpan = document.getElementById("no_hp_pelanggan_error");
                             errorSpan.textContent = "No. HP harus diisi.";
                             noHpPelanggan.classList.add('is-invalid');
-                        } else if (!/^08[0-9]$/.test(noHpValue)) { // Adjust the regex as per your format
+                        } else if (!/^[0-9]+$/.test(noHpValue)) {
                             valid = false;
                             const errorSpan = document.getElementById("no_hp_pelanggan_error");
-                            errorSpan.textContent = "No. HP tidak boleh hanya 08.";
+                            errorSpan.textContent = "No. HP hanya boleh berisi angka.";
                             noHpPelanggan.classList.add('is-invalid');
                         }
                     }
@@ -593,8 +593,6 @@
                         errorMessage.style.display = 'block';
                     }
                 }
-
-                console.log(selectedValues);
                 return valid;
             }
 
